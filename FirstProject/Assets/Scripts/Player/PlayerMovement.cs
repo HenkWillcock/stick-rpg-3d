@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 0.02f;
-    [SerializeField] private float jumpForce = 2.0f;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float spinSpeed;
     public Rigidbody rigidbody;
+
+    void Start() {
+        rigidbody.maxAngularVelocity = spinSpeed;
+    }
 
     void Update()
     {
-        var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(rigidbody.position);
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        rigidbody.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (Input.GetMouseButton(0)) {
+            rigidbody.angularVelocity = new Vector3(0, 0, spinSpeed);
+        } else {
+            rigidbody.angularVelocity = Vector3.zero;
+            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(rigidbody.position);
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            rigidbody.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
 
         // WASD Movement
         float westMovement = System.Convert.ToSingle(Input.GetKey("a"));
@@ -22,9 +32,9 @@ public class PlayerMovement : MonoBehaviour
 	    float northMovement = System.Convert.ToSingle(Input.GetKey("w"));
 	    float southMovement = System.Convert.ToSingle(Input.GetKey("s"));
         float northSouthMovement = (northMovement - southMovement);
-
-        if (eastWestMovement != 0 && northSouthMovement != 0) {
-            // So the player doesn't move faster when travelling diagonally.
+        
+        // So the player doesn't move faster when travelling diagonally.
+        if (eastWestMovement != 0 && northSouthMovement != 0) {    
             eastWestMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));
             northSouthMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));
         }

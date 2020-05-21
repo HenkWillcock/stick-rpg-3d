@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class RoofDisappear : MonoBehaviour
 {
+    public Collider player;
 
     void OnTriggerEnter(Collider other)
     {
-        GetComponent<Renderer>().enabled = false;
+        if (other.tag == "Player") {
+            GetComponent<Renderer>().enabled = false;
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        GetComponent<Renderer>().enabled = true;
+        if (other.tag == "Player") {
+            GetComponent<Renderer>().enabled = true;
+        }
     }
 }
