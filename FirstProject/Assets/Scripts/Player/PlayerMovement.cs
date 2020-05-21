@@ -5,41 +5,36 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 0.02f;
+    [SerializeField] private float jumpForce = 2.0f;
+    public Rigidbody rigidbody;
 
     void Update()
     {
-        transform.position += CalculateVelocity();
-    }
+        var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(rigidbody.position);
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        rigidbody.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-    void OnCollisionEnter()
-    {
-        Debug.Log("We hit something");
-    }
+        // WASD Movement
+        float westMovement = System.Convert.ToSingle(Input.GetKey("a"));
+	    float eastMovement = System.Convert.ToSingle(Input.GetKey("d"));
+        float eastWestMovement = (eastMovement - westMovement);
 
-    void OnTriggerEnter()
-    {
-        Debug.Log("We toasd something");
-    }
+	    float northMovement = System.Convert.ToSingle(Input.GetKey("w"));
+	    float southMovement = System.Convert.ToSingle(Input.GetKey("s"));
+        float northSouthMovement = (northMovement - southMovement);
 
-    public Vector3 CalculateVelocity()
-    {
-        float leftMovement = System.Convert.ToSingle(Input.GetKey("a"));
-	    float rightMovement = System.Convert.ToSingle(Input.GetKey("d"));
-        float horizontalMovement = (rightMovement - leftMovement);
-
-	    float upMovement = System.Convert.ToSingle(Input.GetKey("w"));
-	    float downMovement = System.Convert.ToSingle(Input.GetKey("s"));
-        float verticalMovement = (upMovement - downMovement);
-
-	    Vector3 velocity = new Vector3(horizontalMovement, verticalMovement, 0) * moveSpeed;
-
-        if (horizontalMovement != 0 && verticalMovement != 0) {
+        if (eastWestMovement != 0 && northSouthMovement != 0) {
             // So the player doesn't move faster when travelling diagonally.
-            velocity /= System.Convert.ToSingle(System.Math.Sqrt(2));
+            eastWestMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));
+            northSouthMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));
         }
 
-        return velocity;
+        float jump = System.Convert.ToSingle(Input.GetKey("space"));
+
+	    rigidbody.velocity = new Vector3(
+            eastWestMovement*moveSpeed,
+            northSouthMovement*moveSpeed,
+            rigidbody.velocity.z - jump*jumpForce
+        );
     }
-
-
 }

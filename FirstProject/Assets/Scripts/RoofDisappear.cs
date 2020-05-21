@@ -5,12 +5,12 @@ using UnityEngine;
 public class RoofDisappear : MonoBehaviour
 {
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
         GetComponent<Renderer>().enabled = false;
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit(Collider other)
     {
         GetComponent<Renderer>().enabled = true;
     }
