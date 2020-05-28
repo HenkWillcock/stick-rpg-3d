@@ -59,7 +59,9 @@
      <Compile Include="Assets\Scripts\NPCBehaviour.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerDamage.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerWeapons.cs" />
      <Compile Include="Assets\Scripts\Player\PointAtMouse.cs" />
+     <Compile Include="Assets\Scripts\RenderChildren.cs" />
      <Compile Include="Assets\Scripts\RoofDisappear.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/home/henkwillcock/stick-rpg-3d/FirstProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

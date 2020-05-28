@@ -4,18 +4,32 @@ using UnityEngine;
 
 public class RoofDisappear : MonoBehaviour
 {
+    Transform transform;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") {
-            GetComponent<Renderer>().enabled = false;
-            Debug.Log("Yo");
+            setRenderersEnabled(false);
         }
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player") {
-            GetComponent<Renderer>().enabled = true;
+            setRenderersEnabled(true);
+        }
+    }
+
+    void setRenderersEnabled(bool enabled) {
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null) {
+            GetComponent<Renderer>().enabled = enabled;
+        }
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        for (int i = 0; i < renderers.Length; i++) {
+            renderers[i].enabled = enabled;
         }
     }
 }
+
