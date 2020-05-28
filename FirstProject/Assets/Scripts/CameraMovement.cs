@@ -10,19 +10,25 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float height = 15;
     [SerializeField] private float angle = 20;
 
+    private GameController gameController;
+
     void Start()
     {
+        this.gameController = GameObject.FindObjectOfType<GameController>();
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.left);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {   
+        if (gameController.cameraType == "Following") {
+            // TODO
+        }
         // Position
         Vector3 mousePosition = Input.mousePosition - new Vector3(Screen.width/2, Screen.height/2, 0);
 
         Vector3 desiredPosition = 
-            target.position +
+            this.gameController.gameFocus.position +
             - new Vector3(0, Mathf.Tan(angle * Mathf.Deg2Rad) * height, height) + 
             mousePosition/Screen.width*lookDistance;
 

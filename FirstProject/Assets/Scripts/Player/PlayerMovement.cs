@@ -8,17 +8,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce;
 
     public Rigidbody rigidbody;
+    public Rigidbody vehicle;
 
     void Update()
     {
         // WASD Movement
         float westMovement = System.Convert.ToSingle(Input.GetKey("a"));
 	    float eastMovement = System.Convert.ToSingle(Input.GetKey("d"));
-        float eastWestMovement = (eastMovement - westMovement);
+        float eastWestMovement = eastMovement - westMovement;
 
 	    float northMovement = System.Convert.ToSingle(Input.GetKey("w"));
 	    float southMovement = System.Convert.ToSingle(Input.GetKey("s"));
-        float northSouthMovement = (northMovement - southMovement);
+        float northSouthMovement = northMovement - southMovement;
         
         // So the player doesn't move faster when travelling diagonally.
         if (eastWestMovement != 0 && northSouthMovement != 0) {    

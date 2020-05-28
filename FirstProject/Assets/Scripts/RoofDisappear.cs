@@ -6,6 +6,12 @@ public class RoofDisappear : MonoBehaviour
 {
     Transform transform;
 
+    void Start() {
+        BoxCollider triggerBox = gameObject.AddComponent(typeof(BoxCollider)) as BoxCollider;
+        triggerBox.isTrigger = true;
+        // TODO set triggerBox.transform.
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") {
