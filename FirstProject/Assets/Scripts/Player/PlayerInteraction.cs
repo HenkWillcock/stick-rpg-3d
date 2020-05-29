@@ -15,7 +15,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (other.gameObject.tag == "Vehicle" && Input.GetKeyDown("e")) {
             this.gameController.gameFocus = other.attachedRigidbody;
-            this.gameController.cameraType = "Following";
             transform.gameObject.SetActive(false);
         }
     }

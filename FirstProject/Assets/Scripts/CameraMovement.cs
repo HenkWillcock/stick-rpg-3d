@@ -4,34 +4,36 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] public Rigidbody target;
-    [SerializeField] private float smoothSpeed = 0.125f;
-    [SerializeField] private float lookDistance = 10;
-    [SerializeField] private float height = 15;
-    [SerializeField] private float angle = 20;
+    // [SerializeField] private float smoothSpeed;
+    [SerializeField] private float lookDistance;
+    [SerializeField] private float overheadHeight;
+    [SerializeField] private float overheadOffset;
 
     private GameController gameController;
 
     void Start()
     {
         this.gameController = GameObject.FindObjectOfType<GameController>();
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.left);
+
+        transform.position = 
+            this.gameController.gameFocus.position +
+            new Vector3(0, -this.overheadOffset, -this.overheadHeight);
+        transform.LookAt(this.gameController.gameFocus.position);
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {   
-        if (gameController.cameraType == "Following") {
-            // TODO
-        }
-        // Position
+        // Slightly move camera with mouse
         Vector3 mousePosition = Input.mousePosition - new Vector3(Screen.width/2, Screen.height/2, 0);
+        Vector3 normalizedMousePosition = mousePosition/Screen.width*lookDistance;
 
-        Vector3 desiredPosition = 
+        Vector3 desiredPosition =
             this.gameController.gameFocus.position +
-            - new Vector3(0, Mathf.Tan(angle * Mathf.Deg2Rad) * height, height) + 
-            mousePosition/Screen.width*lookDistance;
+            new Vector3(0, -this.overheadOffset, -this.overheadHeight) +
+            normalizedMousePosition;
 
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = desiredPosition;
+        // TODO figure out smooth following without the vibration
+        // transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
     }
 }
