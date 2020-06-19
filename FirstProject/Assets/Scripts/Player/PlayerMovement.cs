@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 	    float northMovement = System.Convert.ToSingle(Input.GetKey("w"));
 	    float southMovement = System.Convert.ToSingle(Input.GetKey("s"));
         float northSouthMovement = northMovement - southMovement;
-        
+
         // So the player doesn't move faster when travelling diagonally.
         if (eastWestMovement != 0 && northSouthMovement != 0) {    
             eastWestMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));

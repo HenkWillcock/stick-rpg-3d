@@ -766,12 +766,17 @@ PrefabInstance:
     - target: {fileID: 287212567695506742, guid: 9209ac532e76c94bd88d78f7193ee75c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 287212567695506742, guid: 9209ac532e76c94bd88d78f7193ee75c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 120
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 287212567695506742, guid: 9209ac532e76c94bd88d78f7193ee75c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7627825361375747965, guid: 9209ac532e76c94bd88d78f7193ee75c,
         type: 3}
@@ -812,6 +817,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304250263533188156, guid: 9209ac532e76c94bd88d78f7193ee75c,
+        type: 3}
+      propertyPath: m_Mass
+      value: 3.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9209ac532e76c94bd88d78f7193ee75c, type: 3}
@@ -959,12 +969,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9800399abdd7032f9a01b5abf8f935e7, type: 3}
---- !u!54 &1032996069 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: -4440063224697687299, guid: 5eeb1077ba1d0044f8160d7a9a7fe8d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 2514017735084220022}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1103538791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2120,11 +2124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d5abecda9336c1aa3082681ff85f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapons: []
+  weapons:
+  - {fileID: 2052247737}
+  - {fileID: 2052247739}
   weaponIndex: 0
-  spinSpeed: 15
   rigidbody: {fileID: 2052247738}
-  bulletPrefab: {fileID: 1032996069}
 --- !u!114 &2052247732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2167,12 +2171,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a0f4634e074490583dec8a357197be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2052247737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052247729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 812d98d36b9d932ddafc28212574e30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRigidbody: {fileID: 2052247738}
+  spinSpeed: 15
 --- !u!54 &2052247738 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 5304250263533188156, guid: 9209ac532e76c94bd88d78f7193ee75c,
     type: 3}
   m_PrefabInstance: {fileID: 911840363}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2052247739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052247729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c8fee7b15499047aa0a381083786a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRigidbody: {fileID: 2052247738}
+  bulletPrefab: {fileID: -4440063224697687299, guid: 5eeb1077ba1d0044f8160d7a9a7fe8d1,
+    type: 3}
+  bulletVelocity: 20
 --- !u!1 &2084361721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2803,7 +2837,7 @@ PrefabInstance:
     - target: {fileID: 1715718195882205496, guid: a2a5f6a94b8305653a7400af4a512ff2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 115
+      value: 44.5
       objectReference: {fileID: 0}
     - target: {fileID: 1715718195882205496, guid: a2a5f6a94b8305653a7400af4a512ff2,
         type: 3}
@@ -2813,7 +2847,7 @@ PrefabInstance:
     - target: {fileID: 1715718195882205496, guid: a2a5f6a94b8305653a7400af4a512ff2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1715718195882205496, guid: a2a5f6a94b8305653a7400af4a512ff2,
         type: 3}

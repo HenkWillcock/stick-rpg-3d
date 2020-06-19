@@ -6,17 +6,12 @@ public class PlayerWeapons : MonoBehaviour
 {
     [SerializeField] private List<Weapon> weapons;
     [SerializeField] private int weaponIndex;
-    [SerializeField] private float spinSpeed;
 
     public Rigidbody rigidbody;
-    public Rigidbody bulletPrefab;
 
     void Start()
     {
-        rigidbody.maxAngularVelocity = spinSpeed;
-        weapons = new List<Weapon>();
-        weapons.Add(new Spin(this.rigidbody, this.spinSpeed));
-        weapons.Add(new Pistol(this.rigidbody, this.bulletPrefab));
+        rigidbody.maxAngularVelocity = 30;
     }
 
     void Update()
@@ -33,20 +28,21 @@ public class PlayerWeapons : MonoBehaviour
             this.weaponIndex--;
         }
 
-        while (this.weaponIndex > this.weapons.Count - 1) {
-            this.weaponIndex -= this.weapons.Count;
-        }
-    
-        while (weaponIndex < 0) {
-            this.weaponIndex += this.weapons.Count;
+        if (this.weapons.Count > 0) {
+            while (this.weaponIndex > this.weapons.Count - 1) {
+                this.weaponIndex -= this.weapons.Count;
+            }
+        
+            while (weaponIndex < 0) {
+                this.weaponIndex += this.weapons.Count;
+            }
         }
     }
 
     protected void aimPlayer(float offset) {
         this.rigidbody.angularVelocity = Vector3.zero;
-        var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(rigidbody.position);
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + offset;
-        this.rigidbody.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        float angleToMouse = Helpers.angleToMouse(this.rigidbody.position) + offset;
+        this.rigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.forward);
     }
 }
 
@@ -62,35 +58,14 @@ public abstract class Weapon : MonoBehaviour {
 
     protected void aimPlayer(float offset) {
         this.playerRigidbody.angularVelocity = Vector3.zero;
-        var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(this.playerRigidbody.position);
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + offset;
-        this.playerRigidbody.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        float angleToMouse = Helpers.angleToMouse(this.playerRigidbody.position) + offset;
+        this.playerRigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.forward);
     }
 }
 
-public class Spin : Weapon {
-    float spinSpeed;
-
-    public Spin(Rigidbody playerRigidbody, float spinSpeed) : base(playerRigidbody) {
-        this.spinSpeed = spinSpeed;
-    }
-
-    public override void effect() {
-        this.playerRigidbody.angularVelocity = new Vector3(0, 0, this.spinSpeed);
-    }
-}
-
-public class Pistol : Weapon {
-    public Rigidbody bulletPrefab;
-
-    public Pistol(Rigidbody playerRigidbody, Rigidbody bulletPrefab) : base(playerRigidbody) {
-        this.bulletPrefab = bulletPrefab;
-    }
-
-    public override void effect() {
-        aimPlayer(-90);
-
-        Rigidbody bullet;
-        bullet = Instantiate(this.bulletPrefab, this.playerRigidbody.position, this.playerRigidbody.rotation);
+public class Helpers {
+    public static float angleToMouse(Vector3 position) {
+        Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(position);
+        return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
     }
 }

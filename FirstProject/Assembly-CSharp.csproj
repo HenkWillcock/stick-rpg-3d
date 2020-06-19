@@ -67,6 +67,8 @@
      <Compile Include="Assets\Scripts\RenderChildren.cs" />
      <Compile Include="Assets\Scripts\RoofDisappear.cs" />
      <Compile Include="Assets\Scripts\RotateWheel.cs" />
+     <Compile Include="Assets\Scripts\Weapons\Pistol.cs" />
+     <Compile Include="Assets\Scripts\Weapons\Spin.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/home/henkwillcock/stick-rpg-3d/FirstProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
