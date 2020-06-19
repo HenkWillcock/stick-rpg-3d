@@ -19,6 +19,7 @@ public class PlayerWeapons : MonoBehaviour
         if (Input.GetMouseButton(0)) {
             this.weapons[this.weaponIndex].effect();
         } else {
+            this.weapons[this.weaponIndex].idleEffect();
             aimPlayer(0);
         }
 
@@ -55,6 +56,8 @@ public abstract class Weapon : MonoBehaviour {
     }
 
     public abstract void effect();
+
+    public virtual void idleEffect() {return;}
 
     protected void aimPlayer(float offset) {
         this.playerRigidbody.angularVelocity = Vector3.zero;

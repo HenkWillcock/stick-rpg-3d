@@ -2206,7 +2206,8 @@ MonoBehaviour:
   playerRigidbody: {fileID: 2052247738}
   bulletPrefab: {fileID: -4440063224697687299, guid: 5eeb1077ba1d0044f8160d7a9a7fe8d1,
     type: 3}
-  bulletVelocity: 20
+  bulletVelocity: 50
+  reloadTime: 30
 --- !u!1 &2084361721
 GameObject:
   m_ObjectHideFlags: 0
