@@ -271,9 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bd3a797f123b094af965821ba55737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSpeed: 5
+  topSpeed: 8
   acceleration: 2
-  jumpForce: 20
+  jumpForce: 16
   playerRigidbody: {fileID: 8679661227018187749}
 --- !u!114 &3596162117872894727
 MonoBehaviour:
@@ -301,6 +301,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a0f4634e074490583dec8a357197be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  impulseDamageMultiplier: 2
+  minImpulseForDamage: 12
+  impulseRecovery: 0.5
+  healthRegen: 0.1
 --- !u!114 &3596162117872894731
 MonoBehaviour:
   m_ObjectHideFlags: 0

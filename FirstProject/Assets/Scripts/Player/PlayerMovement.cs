@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
             northSouthMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));
         }
 
+        // TODO use code to find players feet
         Vector3 playersFeet = this.playerRigidbody.position + new Vector3(0, 0, 1.1f);
         bool isGrounded = Physics.Raycast(playersFeet, Vector3.forward, 0.5f);
         float jump = 0;
@@ -40,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         } else {
             this.timeUntilJump--;
         }
-        
 
         float horizontalSpeed = Mathf.Sqrt(
             Mathf.Pow(this.playerRigidbody.velocity.x, 2) +

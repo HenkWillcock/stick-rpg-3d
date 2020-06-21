@@ -15,6 +15,7 @@ public class CarDriving : MonoBehaviour
     public WheelCollider rearRightWheel;
 
     public float motorTorque;
+    public float topRPM;
     public float brakeTorque;
     public float maxSteeringAngle;
 
@@ -39,13 +40,11 @@ public class CarDriving : MonoBehaviour
 
             // Accelerate
             float acceleration = System.Convert.ToSingle(Input.GetKey("w")) * this.motorTorque * this.gear;
-            Debug.Log(acceleration);
+            float leftWheelLoss = 1 - (this.frontLeftWheel.rpm * Time.deltaTime / this.topRPM);
+            float rightWheelLoss = 1 - (this.frontRightWheel.rpm * Time.deltaTime / this.topRPM);
 
-
-            this.frontLeftWheel.motorTorque = acceleration;
-            this.frontRightWheel.motorTorque = acceleration;
-
-            Debug.Log("Motor torque: " + this.frontLeftWheel.motorTorque + ", Brake torque: " + this.frontLeftWheel.brakeTorque);
+            this.frontLeftWheel.motorTorque = acceleration * leftWheelLoss;
+            this.frontRightWheel.motorTorque = acceleration * rightWheelLoss;
 
             // Steering
             float steerLeft = System.Convert.ToSingle(Input.GetKey("a"));

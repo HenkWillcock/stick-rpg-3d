@@ -59,9 +59,10 @@
      <Compile Include="Assets\Scripts\CarDriving.cs" />
      <Compile Include="Assets\Scripts\FollowingCamera.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\HUD\HealthBar.cs" />
      <Compile Include="Assets\Scripts\HUD\WeaponText.cs" />
      <Compile Include="Assets\Scripts\NPCBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerDamage.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerInteraction.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerWeapons.cs" />
