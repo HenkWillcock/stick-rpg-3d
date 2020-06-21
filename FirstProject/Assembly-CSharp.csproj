@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\CarDriving.cs" />
      <Compile Include="Assets\Scripts\FollowingCamera.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\HUD\WeaponText.cs" />
      <Compile Include="Assets\Scripts\NPCBehaviour.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerDamage.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerInteraction.cs" />
@@ -67,7 +68,7 @@
      <Compile Include="Assets\Scripts\RenderChildren.cs" />
      <Compile Include="Assets\Scripts\RoofDisappear.cs" />
      <Compile Include="Assets\Scripts\RotateWheel.cs" />
-     <Compile Include="Assets\Scripts\Weapons\Pistol.cs" />
+     <Compile Include="Assets\Scripts\Weapons\Gun.cs" />
      <Compile Include="Assets\Scripts\Weapons\Spin.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/home/henkwillcock/stick-rpg-3d/FirstProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

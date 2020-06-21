@@ -50,7 +50,7 @@ public class CarDriving : MonoBehaviour
             // Steering
             float steerLeft = System.Convert.ToSingle(Input.GetKey("a"));
             float steerRight = System.Convert.ToSingle(Input.GetKey("d"));
-            float steerAngle = (steerLeft - steerRight) * this.maxSteeringAngle;
+            float steerAngle = (steerRight - steerLeft) * this.maxSteeringAngle;
 
             this.frontLeftWheel.steerAngle = steerAngle;
             this.frontRightWheel.steerAngle = steerAngle;

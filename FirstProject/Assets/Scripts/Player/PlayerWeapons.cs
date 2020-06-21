@@ -9,6 +9,10 @@ public class PlayerWeapons : MonoBehaviour
 
     public Rigidbody rigidbody;
 
+    public Weapon currentWeapon() {
+        return this.weapons[this.weaponIndex];
+    }
+
     void Start()
     {
         rigidbody.maxAngularVelocity = 30;
@@ -16,24 +20,26 @@ public class PlayerWeapons : MonoBehaviour
 
     void Update()
     {
+        // Use weapon.
         if (Input.GetMouseButton(0)) {
-            this.weapons[this.weaponIndex].effect();
+            this.currentWeapon().effect();
         } else {
-            this.weapons[this.weaponIndex].idleEffect();
+            this.currentWeapon().idleEffect();
             aimPlayer(0);
         }
 
+        // Select next weapon.
         if (Input.mouseScrollDelta.y > 0) {
             this.weaponIndex++;
         } else if (Input.mouseScrollDelta.y < 0) {
             this.weaponIndex--;
         }
 
+        // Loop weapon index around.
         if (this.weapons.Count > 0) {
             while (this.weaponIndex > this.weapons.Count - 1) {
                 this.weaponIndex -= this.weapons.Count;
             }
-        
             while (weaponIndex < 0) {
                 this.weaponIndex += this.weapons.Count;
             }
@@ -49,6 +55,7 @@ public class PlayerWeapons : MonoBehaviour
 
 
 public abstract class Weapon : MonoBehaviour {
+    public string name;
     public Rigidbody playerRigidbody;
 
     public Weapon(Rigidbody playerRigidbody) {

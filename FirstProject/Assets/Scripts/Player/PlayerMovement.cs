@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float topSpeed;
+    [SerializeField] private float acceleration;
     [SerializeField] private float jumpForce;
 
-    public Rigidbody rigidbody;
-    public Rigidbody vehicle;
+    public Rigidbody playerRigidbody;
+
+    private int timeUntilJump = 0;
+    private Rigidbody vehicle;
 
     void Update()
     {
@@ -27,12 +30,30 @@ public class PlayerMovement : MonoBehaviour
             northSouthMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));
         }
 
-        float jump = System.Convert.ToSingle(Input.GetKey("space"));
+        Vector3 playersFeet = this.playerRigidbody.position + new Vector3(0, 0, 1.1f);
+        bool isGrounded = Physics.Raycast(playersFeet, Vector3.forward, 0.5f);
+        float jump = 0;
 
-	    rigidbody.velocity = new Vector3(
-            eastWestMovement*moveSpeed,
-            northSouthMovement*moveSpeed,
-            rigidbody.velocity.z - jump*jumpForce
+        if (this.timeUntilJump == 0) {
+            jump = System.Convert.ToSingle(Input.GetKey("space"));
+            this.timeUntilJump = 5;
+        } else {
+            this.timeUntilJump--;
+        }
+        
+
+        float horizontalSpeed = Mathf.Sqrt(
+            Mathf.Pow(this.playerRigidbody.velocity.x, 2) +
+            Mathf.Pow(this.playerRigidbody.velocity.y, 2)
+        );
+
+	    playerRigidbody.AddForce(
+            new Vector3(
+                eastWestMovement*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed,
+                northSouthMovement*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed,
+                -jump*this.jumpForce*System.Convert.ToSingle(isGrounded)
+            ),
+            ForceMode.Impulse
         );
     }
 }

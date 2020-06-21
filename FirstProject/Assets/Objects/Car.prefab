@@ -371,7 +371,7 @@ MonoBehaviour:
   frontRightWheel: {fileID: 8516221421041608343}
   rearLeftWheel: {fileID: 4726780091822405915}
   rearRightWheel: {fileID: 5058985077534471941}
-  motorTorque: 500
+  motorTorque: 1000
   brakeTorque: 10
   maxSteeringAngle: 30
   gear: 1
