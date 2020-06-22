@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public GameController gameController;
+    private GameController gameController;
     public Transform transform;
 
     public void Start() {

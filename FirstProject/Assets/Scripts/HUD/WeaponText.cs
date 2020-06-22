@@ -10,6 +10,6 @@ public class WeaponText : MonoBehaviour
 
     void Update()
     {
-        this.weaponText.text = this.playerWeapons.currentWeapon().name;
+        this.weaponText.text = this.playerWeapons.currentWeapon().getName();
     }
 }

@@ -26,9 +26,9 @@ public class PlayerHealth : MonoBehaviour
         }
 
         // Health Regen
-        // TODO dont run every frame
+        // TODO sort out
         if (this.currentHealth < this.maxHealth - this.healthRegen) {
-            this.currentHealth += this.healthRegen;
+            this.currentHealth += this.healthRegen * Time.deltaTime;
         } else if (this.currentHealth < this.healthRegen) {
             this.currentHealth = this.maxHealth;
         }
@@ -36,7 +36,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision) {
         this.recentImpulseMagnitude += collision.impulse.magnitude;
-        Debug.Log("BAHAHAHA");
 
         if (this.recentImpulseMagnitude > this.minImpulseForDamage) {
             float impulseDamage = this.recentImpulseMagnitude - this.minImpulseForDamage;

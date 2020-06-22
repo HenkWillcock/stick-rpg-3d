@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Spin : Weapon {
-    public float spinSpeed;
+    private float spinSpeed;
 
-    public Spin(Rigidbody playerRigidbody, float spinSpeed) : base(playerRigidbody) {
+    public Spin(
+            Rigidbody usersRigidbody,
+            string name,
+            float spinSpeed
+        ) : base(usersRigidbody, name) {
+
         this.spinSpeed = spinSpeed;
     }
 
     public override void effect() {
-        this.playerRigidbody.angularVelocity = new Vector3(0, 0, this.spinSpeed);
+        float spinLoss = 1 - (this.usersRigidbody.angularVelocity.magnitude / this.spinSpeed);
+
+        this.usersRigidbody.AddTorque(
+            this.usersRigidbody.transform.up * spinLoss,
+            ForceMode.Impulse);
+    }
+
+    public override void npcBehaviour(Rigidbody target) {
+        this.effect();
     }
 }

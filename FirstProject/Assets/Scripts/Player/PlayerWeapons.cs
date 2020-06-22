@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerWeapons : MonoBehaviour
 {
-    [SerializeField] private List<Weapon> weapons;
-    [SerializeField] private int weaponIndex;
-
     public Rigidbody rigidbody;
+    public Rigidbody bulletPrefab;
+
+    private List<Weapon> weapons;
+    private int weaponIndex;
 
     public Weapon currentWeapon() {
         return this.weapons[this.weaponIndex];
@@ -16,6 +17,12 @@ public class PlayerWeapons : MonoBehaviour
     void Start()
     {
         rigidbody.maxAngularVelocity = 30;
+
+        this.weapons = new List<Weapon>();
+
+        this.weapons.Add(new Spin(this.rigidbody, "Spin", 15));
+        this.weapons.Add(new Gun(this.rigidbody, "Pistol", this.bulletPrefab, 40, 30));
+        this.weapons.Add(new Gun(this.rigidbody, "Machine Gun", this.bulletPrefab, 30, 8));
     }
 
     void Update()
@@ -25,7 +32,7 @@ public class PlayerWeapons : MonoBehaviour
             this.currentWeapon().effect();
         } else {
             this.currentWeapon().idleEffect();
-            aimPlayer(0);
+            aimPlayer(90);
         }
 
         // Select next weapon.
@@ -48,34 +55,38 @@ public class PlayerWeapons : MonoBehaviour
 
     protected void aimPlayer(float offset) {
         this.rigidbody.angularVelocity = Vector3.zero;
-        float angleToMouse = Helpers.angleToMouse(this.rigidbody.position) + offset;
-        this.rigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.forward);
+        float angleToMouse = Helpers.angleFromPositionToMouse(this.rigidbody.position) + offset;
+        this.rigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.up);
     }
 }
 
+public abstract class Weapon {  // TODO pretty sure this doesn't need to be MonoBehaviour
+    protected Rigidbody usersRigidbody;
+    private string name;    
 
-public abstract class Weapon : MonoBehaviour {
-    public string name;
-    public Rigidbody playerRigidbody;
-
-    public Weapon(Rigidbody playerRigidbody) {
-        this.playerRigidbody = playerRigidbody;
+    public Weapon(Rigidbody usersRigidbody, string name) {
+        this.usersRigidbody = usersRigidbody;
+        this.name = name;
     }
+
+    public string getName() {return this.name;}
 
     public abstract void effect();
 
     public virtual void idleEffect() {return;}
 
+    public virtual void npcBehaviour(Rigidbody target) {return;}
+
     protected void aimPlayer(float offset) {
-        this.playerRigidbody.angularVelocity = Vector3.zero;
-        float angleToMouse = Helpers.angleToMouse(this.playerRigidbody.position) + offset;
-        this.playerRigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.forward);
+        this.usersRigidbody.angularVelocity = Vector3.zero;
+        float angleToMouse = Helpers.angleFromPositionToMouse(this.usersRigidbody.position) + offset;
+        this.usersRigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.up);
     }
 }
 
 public class Helpers {
-    public static float angleToMouse(Vector3 position) {
+    public static float angleFromPositionToMouse(Vector3 position) {
         Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(position);
-        return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        return Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
     }
 }

@@ -4,27 +4,48 @@ using UnityEngine;
 
 public class Gun : Weapon {
     public Rigidbody bulletPrefab;
-    public float bulletVelocity;
-    public int reloadTime;
+
+    private float bulletVelocity;
+    private int reloadTime;
 
     private int timeUntilLoaded = 0;
 
-    public Gun(Rigidbody playerRigidbody, Rigidbody bulletPrefab) : base(playerRigidbody) {
+    public Gun(
+            Rigidbody usersRigidbody,
+            string name,
+            Rigidbody bulletPrefab,
+            float bulletVelocity,
+            int reloadTime) :
+            base(usersRigidbody, name) 
+        {
+
         this.bulletPrefab = bulletPrefab;
+        this.bulletVelocity = bulletVelocity;
+        this.reloadTime = reloadTime;
     }
 
     public override void effect() {
-        aimPlayer(-90);
-        
-        if (this.timeUntilLoaded == 0) {
-            // TODO make bullets disappear after they stop moving.
+        aimPlayer(0);
 
-            Rigidbody bullet;
-            bullet = Instantiate(this.bulletPrefab, this.playerRigidbody.position, this.playerRigidbody.rotation);
-            Vector3 towardsMouse = Input.mousePosition - Camera.main.WorldToScreenPoint(this.playerRigidbody.position);
-            towardsMouse.Normalize();
-            bullet.position += towardsMouse;
-            bullet.velocity = towardsMouse * this.bulletVelocity;
+        if (this.timeUntilLoaded == 0) {
+
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit)) {  // TODO ignore hidden roofs
+                Vector3 objectHitPosition = hit.point;
+                Vector3 towardsObject = objectHitPosition - this.usersRigidbody.position;
+                towardsObject.Normalize();
+
+                Rigidbody bullet;
+                bullet = Object.Instantiate(
+                    this.bulletPrefab,
+                    this.usersRigidbody.position + towardsObject*3,
+                    Quaternion.LookRotation(towardsObject)
+                );
+                bullet.velocity = towardsObject * this.bulletVelocity;
+            }
+
             this.timeUntilLoaded = this.reloadTime;
 
         } else if (this.timeUntilLoaded > 0)  {

@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // TODO use code to find players feet
-        Vector3 playersFeet = this.playerRigidbody.position + new Vector3(0, 0, 1.1f);
-        bool isGrounded = Physics.Raycast(playersFeet, Vector3.forward, 0.5f);
+        Vector3 playersFeet = this.playerRigidbody.position;
+        bool isGrounded = Physics.Raycast(playersFeet, Vector3.down, 1.5f);
         float jump = 0;
 
         if (this.timeUntilJump == 0) {
@@ -44,14 +44,15 @@ public class PlayerMovement : MonoBehaviour
 
         float horizontalSpeed = Mathf.Sqrt(
             Mathf.Pow(this.playerRigidbody.velocity.x, 2) +
-            Mathf.Pow(this.playerRigidbody.velocity.y, 2)
+            Mathf.Pow(this.playerRigidbody.velocity.z, 2)
         );
 
 	    playerRigidbody.AddForce(
             new Vector3(
                 eastWestMovement*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed,
-                northSouthMovement*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed,
-                -jump*this.jumpForce*System.Convert.ToSingle(isGrounded)
+                jump*this.jumpForce*System.Convert.ToSingle(isGrounded),
+                northSouthMovement*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed
+                
             ),
             ForceMode.Impulse
         );
