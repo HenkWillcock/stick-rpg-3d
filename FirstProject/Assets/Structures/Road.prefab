@@ -43,42 +43,7 @@ PrefabInstance:
     - target: {fileID: 4939628319310766248, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
         type: 3}
       propertyPath: m_Name
-      value: Pavement (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
+      value: Left Pavement
       objectReference: {fileID: 0}
     - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
         type: 3}
@@ -87,18 +52,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      propertyPath: m_LocalScale.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
         type: 3}
@@ -107,8 +62,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
+      propertyPath: m_LocalPosition.y
+      value: -6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1b2e82807b3ce5a4b1ce218248f3a53, type: 3}
@@ -128,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 4939628319310766248, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
         type: 3}
       propertyPath: m_Name
-      value: Pavement
+      value: Right Pavement
       objectReference: {fileID: 0}
     - target: {fileID: 4429701019894636170, guid: e1b2e82807b3ce5a4b1ce218248f3a53,
         type: 3}
@@ -213,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 7076981127066317712, guid: a3d53f943d547999291de5895dfd8fbd,
         type: 3}
       propertyPath: m_Name
-      value: Road (1)
+      value: Road
       objectReference: {fileID: 0}
     - target: {fileID: 150797780663128486, guid: a3d53f943d547999291de5895dfd8fbd,
         type: 3}
