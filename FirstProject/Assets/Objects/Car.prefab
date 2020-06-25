@@ -365,8 +365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efb9626e9ef21a8e816ac11cdf6c000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 3605030774445046685}
   transform: {fileID: 1715718195882205496}
+  rigidbody: {fileID: 3605030774445046685}
   frontLeftWheel: {fileID: 469774138399667361}
   frontRightWheel: {fileID: 8516221421041608343}
   rearLeftWheel: {fileID: 4726780091822405915}

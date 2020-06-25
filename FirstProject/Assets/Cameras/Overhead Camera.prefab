@@ -96,8 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530519aa99c2991c0b8c77d27d427631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothSpeed: 0.05
   lookDistance: 20
-  overheadHeight: 15
-  overheadOffset: 10
-  followingAngle: 60
+  angle: 40
+  distance: 50

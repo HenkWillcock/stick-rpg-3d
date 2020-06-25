@@ -6,38 +6,64 @@ public class CameraMovement : MonoBehaviour
 {
     // [SerializeField] private float smoothSpeed;
     [SerializeField] private float lookDistance;
-    [SerializeField] private float overheadHeight;
-    [SerializeField] private float overheadOffset;
+
+    private Vector3 overheadHeight;
+    private float overheadOffset;
 
     private GameController gameController;
+
+    public bool overheadMode;
 
     void Start()
     {
         this.gameController = GameObject.FindObjectOfType<GameController>();
-
-        transform.position = 
-            this.gameController.gameFocus.position +
-            new Vector3(0, this.overheadHeight, -this.overheadOffset);
-        transform.LookAt(this.gameController.gameFocus.position);
     }
 
     void LateUpdate()
-    {   
-        // Slightly move camera with mouse
+    {
+        if(this.overheadMode) {
+            transform.position = this.defaultOverheadPosition() + overheadLookAround();
+        } else {
+            transform.position = 
+                    this.gameController.gameFocus.position +
+                    this.overheadHeight -
+                    this.gameController.gameFocus.transform.forward * this.overheadOffset;
+            transform.LookAt(this.gameController.gameFocus.position);
+        }
+
+        // TODO figure out smooth following without the vibration
+        // transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+    }
+
+    public void recalculateCameraPosition(float angle, float distance) {
+        this.overheadOffset = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
+        this.overheadHeight = new Vector3(
+            0, Mathf.Cos(angle * Mathf.Deg2Rad) * distance, 0
+        );
+
+        transform.position = defaultOverheadPosition();
+
+        transform.LookAt(this.gameController.gameFocus.position);
+    }
+
+    private Vector3 defaultOverheadPosition() {
+        return
+            this.gameController.gameFocus.position +
+            this.overheadHeight + 
+            this.defaultOffset();
+    }
+
+    private Vector3 defaultOffset() {
+        return new Vector3(0, 0, -this.overheadOffset);
+    }
+
+    private Vector3 overheadLookAround() {
         Vector3 mousePosition = new Vector3(
             Input.mousePosition.x - Screen.width/2, 
             0,
             Input.mousePosition.y -Screen.height/2
         );
-        Vector3 normalizedMousePosition = mousePosition/Screen.width*lookDistance;
 
-        Vector3 desiredPosition =
-            this.gameController.gameFocus.position +
-            new Vector3(0, this.overheadHeight, -this.overheadOffset) +
-            normalizedMousePosition;
-
-        transform.position = desiredPosition;
-        // TODO figure out smooth following without the vibration
-        // transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        return mousePosition/Screen.width*lookDistance;
     }
 }

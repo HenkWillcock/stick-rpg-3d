@@ -13,8 +13,12 @@ public class PlayerInteraction : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Vehicle" && Input.GetKeyDown("e")) {
-            this.gameController.gameFocus = other.attachedRigidbody;
+        if (
+                other.gameObject.GetComponent<VehicleDriving>() != null && 
+                Input.GetKeyUp("return") && 
+                this.gameController.CanSwitchFocus()
+        ) {
+            this.gameController.SwitchFocus(other.attachedRigidbody);
             transform.gameObject.SetActive(false);
         }
     }
