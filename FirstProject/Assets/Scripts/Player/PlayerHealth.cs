@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : PlayerVitalStat
 {
     public float maxHealth;
     public float impulseDamageMultiplier;
@@ -38,6 +38,8 @@ public class PlayerHealth : MonoBehaviour
         this.recentImpulseMagnitude += collision.impulse.magnitude;
 
         if (this.recentImpulseMagnitude > this.minImpulseForDamage) {
+            // TODO instant death bug, probably to do with qucik accelleration in opposite directions within
+            // like 1 frame.
             float impulseDamage = this.recentImpulseMagnitude - this.minImpulseForDamage;
             this.currentHealth -= Mathf.Pow(impulseDamage, 2) * this.impulseDamageMultiplier;
             this.recentImpulseMagnitude -= impulseDamage;
@@ -50,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public float remainingHealthProportion() {
+    public override float remainingProportion() {
         return this.currentHealth/this.maxHealth;
     }
 }

@@ -372,8 +372,8 @@ MonoBehaviour:
   rearLeftWheel: {fileID: 4726780091822405915}
   rearRightWheel: {fileID: 5058985077534471941}
   motorTorque: 3000
-  topRPM: 10
-  brakeTorque: 10
+  topRPM: 20
+  brakeTorque: 3000
   maxSteeringAngle: 30
   gear: 1
 --- !u!65 &8294108244609650731
@@ -569,6 +569,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Left Rear
       objectReference: {fileID: 0}
+    - target: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6529927250072509648, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
         type: 3}
       propertyPath: m_RootOrder
@@ -619,11 +624,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -2.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb, type: 3}
 --- !u!4 &8318167104447603664 stripped
@@ -649,6 +649,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Right Rear
+      objectReference: {fileID: 0}
+    - target: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6529927250072509648, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
         type: 3}
@@ -699,11 +704,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb, type: 3}

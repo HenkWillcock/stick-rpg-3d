@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeapons : MonoBehaviour
+public class PlayerWeapons : ReturnsText
 {
     public Rigidbody rigidbody;
     public Rigidbody bulletPrefab;
@@ -57,6 +57,10 @@ public class PlayerWeapons : MonoBehaviour
         this.rigidbody.angularVelocity = Vector3.zero;
         float angleToMouse = Helpers.angleFromPositionToMouse(this.rigidbody.position) + offset;
         this.rigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.up);
+    }
+
+    public override string outputText() {
+        return this.currentWeapon().getName();
     }
 }
 
