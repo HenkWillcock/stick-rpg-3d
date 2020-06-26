@@ -19,13 +19,13 @@ public class Gun : Weapon {
             base(usersRigidbody, name) 
         {
 
-        this.bulletPrefab = bulletPrefab;
+        this.bulletPrefab = bulletPrefab; //((GameObject)Resources.Load("Objects/Bullet", typeof(GameObject))).GetComponent<Rigidbody>();
         this.bulletVelocity = bulletVelocity;
         this.reloadTime = reloadTime;
     }
 
     public override void effect() {
-        aimPlayer(0);
+        // aimPlayer(0);  TODO figure out good way to give this back to player
 
         if (this.timeUntilLoaded == 0) {
 
@@ -40,7 +40,7 @@ public class Gun : Weapon {
                 Rigidbody bullet;
                 bullet = Object.Instantiate(
                     this.bulletPrefab,
-                    this.usersRigidbody.position + towardsObject*3,
+                    this.usersRigidbody.position + towardsObject * 3,
                     Quaternion.LookRotation(towardsObject)
                 );
                 bullet.velocity = towardsObject * this.bulletVelocity;

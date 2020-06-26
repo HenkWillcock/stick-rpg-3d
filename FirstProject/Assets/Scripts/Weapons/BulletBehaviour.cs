@@ -7,6 +7,10 @@ public class BulletBehaviour : MonoBehaviour
     public Rigidbody rigidbody;
     public float lifeSpan;
 
+    void Start() {
+        this.rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+    }
+
     // Update is called once per frame
     void Update()
     {

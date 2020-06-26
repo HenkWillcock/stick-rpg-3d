@@ -21,13 +21,14 @@ public class PlayerWeapons : ReturnsText
         this.weapons = new List<Weapon>();
 
         this.weapons.Add(new Spin(this.rigidbody, "Spin", 15));
-        this.weapons.Add(new Gun(this.rigidbody, "Pistol", this.bulletPrefab, 40, 30));
+        this.weapons.Add(new Gun(this.rigidbody, "Pistol", this.bulletPrefab, 30, 30));
         this.weapons.Add(new Gun(this.rigidbody, "Machine Gun", this.bulletPrefab, 30, 8));
+        this.weapons.Add(new Gun(this.rigidbody, "Sniper", this.bulletPrefab, 80, 60));
     }
 
     void Update()
     {
-        // Use weapon.
+        // Use Weapon
         if (Input.GetMouseButton(0)) {
             this.currentWeapon().effect();
         } else {
@@ -35,14 +36,14 @@ public class PlayerWeapons : ReturnsText
             aimPlayer(90);
         }
 
-        // Select next weapon.
+        // Select Next Weapon
         if (Input.mouseScrollDelta.y > 0) {
             this.weaponIndex++;
         } else if (Input.mouseScrollDelta.y < 0) {
             this.weaponIndex--;
         }
 
-        // Loop weapon index around.
+        // Loop Weapon Index Around
         if (this.weapons.Count > 0) {
             while (this.weaponIndex > this.weapons.Count - 1) {
                 this.weaponIndex -= this.weapons.Count;
@@ -61,30 +62,6 @@ public class PlayerWeapons : ReturnsText
 
     public override string outputText() {
         return this.currentWeapon().getName();
-    }
-}
-
-public abstract class Weapon {  // TODO pretty sure this doesn't need to be MonoBehaviour
-    protected Rigidbody usersRigidbody;
-    private string name;    
-
-    public Weapon(Rigidbody usersRigidbody, string name) {
-        this.usersRigidbody = usersRigidbody;
-        this.name = name;
-    }
-
-    public string getName() {return this.name;}
-
-    public abstract void effect();
-
-    public virtual void idleEffect() {return;}
-
-    public virtual void npcBehaviour(Rigidbody target) {return;}
-
-    protected void aimPlayer(float offset) {
-        this.usersRigidbody.angularVelocity = Vector3.zero;
-        float angleToMouse = Helpers.angleFromPositionToMouse(this.usersRigidbody.position) + offset;
-        this.usersRigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.up);
     }
 }
 

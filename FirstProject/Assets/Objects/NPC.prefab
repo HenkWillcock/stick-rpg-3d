@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1310979b6fdff3f938558c82b74c9ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownRigidbody: {fileID: 7650742754667731887}
+  topSpeed: 5
+  acceleration: 2
+  jumpForce: 5
+  rigidbody: {fileID: 7650742754667731887}
   player: {fileID: 0}
 --- !u!1001 &2571729647112286099
 PrefabInstance:

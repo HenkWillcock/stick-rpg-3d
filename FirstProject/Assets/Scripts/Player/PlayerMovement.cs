@@ -2,59 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Movement
 {
-    [SerializeField] private float topSpeed;
-    [SerializeField] private float acceleration;
-    [SerializeField] private float jumpForce;
-
-    public Rigidbody playerRigidbody;
-
     private int timeUntilJump = 0;
     private Rigidbody vehicle;
 
     void Update()
     {
         // WASD Movement
-        float westMovement = System.Convert.ToSingle(Input.GetKey("a"));
-	    float eastMovement = System.Convert.ToSingle(Input.GetKey("d"));
-        float eastWestMovement = eastMovement - westMovement;
+        float leftRightMovement = 
+                System.Convert.ToSingle(Input.GetKey("d")) -
+                System.Convert.ToSingle(Input.GetKey("a"));
 
-	    float northMovement = System.Convert.ToSingle(Input.GetKey("w"));
-	    float southMovement = System.Convert.ToSingle(Input.GetKey("s"));
-        float northSouthMovement = northMovement - southMovement;
+        float upDownMovement = 
+                System.Convert.ToSingle(Input.GetKey("w")) -
+                System.Convert.ToSingle(Input.GetKey("s"));
 
-        // So the player doesn't move faster when travelling diagonally.
-        if (eastWestMovement != 0 && northSouthMovement != 0) {    
-            eastWestMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));
-            northSouthMovement /= System.Convert.ToSingle(System.Math.Sqrt(2));
-        }
+        this.MoveWithHeading(new Vector3(leftRightMovement, 0, upDownMovement));
 
-        // TODO use code to find players feet
-        Vector3 playersFeet = this.playerRigidbody.position;
-        bool isGrounded = Physics.Raycast(playersFeet, Vector3.down, 1.5f);
-        float jump = 0;
-
-        if (this.timeUntilJump == 0) {
-            jump = System.Convert.ToSingle(Input.GetKey("space"));
+        // Jumping
+        if (Input.GetKey("space") && this.timeUntilJump == 0) {
+            this.JumpIfGrounded();
             this.timeUntilJump = 5;
-        } else {
+        } else if (this.timeUntilJump > 0) {
             this.timeUntilJump--;
         }
-
-        float horizontalSpeed = Mathf.Sqrt(
-            Mathf.Pow(this.playerRigidbody.velocity.x, 2) +
-            Mathf.Pow(this.playerRigidbody.velocity.z, 2)
-        );
-
-	    playerRigidbody.AddForce(
-            new Vector3(
-                eastWestMovement*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed,
-                jump*this.jumpForce*System.Convert.ToSingle(isGrounded),
-                northSouthMovement*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed
-                
-            ),
-            ForceMode.Impulse
-        );
     }
 }

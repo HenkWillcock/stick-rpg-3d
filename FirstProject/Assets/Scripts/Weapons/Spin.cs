@@ -22,7 +22,7 @@ public class Spin : Weapon {
             ForceMode.Impulse);
     }
 
-    public override void npcBehaviour(Rigidbody target) {
-        this.effect();
+    public override void npcBehaviour(Transform target) {
+        // TODO handling all the behaviour in here doesn't seem like a good idea
     }
 }

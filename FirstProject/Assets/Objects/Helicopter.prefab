@@ -419,8 +419,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform: {fileID: 4387775719166001532}
   rigidbody: {fileID: 212717764508598291}
+  bulletPrefab: {fileID: 2535042043745489693, guid: eda99e83534bbd14dac118fd5ea2aa32,
+    type: 3}
   blades: {fileID: 3425585594399728576}
-  rotorSpeed: 0
 --- !u!65 &4484696445477430611
 BoxCollider:
   m_ObjectHideFlags: 0
