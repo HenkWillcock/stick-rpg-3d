@@ -46,8 +46,7 @@ public class PlayerHealth : PlayerVitalStat
         }
 
         if (this.currentHealth < 0) {
-            GetComponent<PlayerMovement>().enabled = false;
-            // GetComponent<PlayerWeapons>().enabled = false;
+            GetComponent<Player>().enabled = false;
             this.currentHealth = 0;
         }
     }

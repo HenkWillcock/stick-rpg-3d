@@ -19,7 +19,7 @@ public class Gun : Weapon {
             base(user, name) 
         {
 
-        this.bulletPrefab = bulletPrefab; //((GameObject)Resources.Load("Objects/Bullet", typeof(GameObject))).GetComponent<Rigidbody>();
+        this.bulletPrefab = bulletPrefab;
         this.bulletVelocity = bulletVelocity;
         this.reloadTime = reloadTime;
     }
@@ -44,8 +44,7 @@ public class Gun : Weapon {
                     Quaternion.LookRotation(towardsObject)
                 );
                 bullet.velocity = towardsObject * this.bulletVelocity;
-                // bullet.GetComponent<BulletBehaviour>().shooter = this.user  
-                // TODO this.user should be a Character object
+                bullet.GetComponent<BulletBehaviour>().shooter = this.user;
             }
 
             this.timeUntilLoaded = this.reloadTime;

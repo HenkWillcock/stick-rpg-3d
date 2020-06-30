@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : Character
+public class Player : Character
 {
     public Rigidbody bulletPrefab;
 
@@ -21,6 +21,8 @@ public class PlayerMovement : Character
 
     void Start()
     {
+        base.Start();
+
         rigidbody.maxAngularVelocity = 30;
 
         this.weapons = new List<Weapon>();
@@ -82,11 +84,7 @@ public class PlayerMovement : Character
         if (this.vehicle != null && Input.GetKeyUp("return") && this.lastInteracted == 0) {
             this.cameraScript.recalculateCameraPosition(30, 25);
             this.lastInteracted = 5;
-            this.rigidbody.velocity = this.vehicle.rigidbody.velocity;
-            this.rigidbody.position = this.vehicle.transform.position + this.vehicle.transform.right * 3;
-            this.vehicle.driver = null;
-            this.vehicle = null;
-            this.rigidbody.detectCollisions = true;
+            this.ExitVehicle();
         }
 
         // Reduce Last Interacted
@@ -99,16 +97,10 @@ public class PlayerMovement : Character
     {
         // Enter Vehicle
         VehicleDriving vehicleScript = other.gameObject.GetComponent<VehicleDriving>();
-        if (
-                vehicleScript != null && 
-                Input.GetKeyUp("return") &&
-                this.lastInteracted == 0
-                
-        ) {
+
+        if (vehicleScript != null && Input.GetKeyUp("return") && this.lastInteracted == 0) {
             this.lastInteracted = 5;
-            vehicleScript.driver = this;
-            this.vehicle = vehicleScript;
-            this.rigidbody.detectCollisions = false;
+            this.EnterVehicle(vehicleScript);
             this.cameraScript.recalculateCameraPosition(60, 30);
         }
     }

@@ -18,6 +18,8 @@ public class NPCBehaviour : Character
     }
 
     void Start() {
+        base.Start();
+
         // this.behaviour = new DocileBehaviour();
         this.behaviour = new AttackTargetBehaviour(
             this,

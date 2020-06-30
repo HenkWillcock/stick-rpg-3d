@@ -6,16 +6,8 @@ public abstract class VehicleDriving : MonoBehaviour
 {
     public Transform transform;
     public Rigidbody rigidbody;
-    public Rigidbody bulletPrefab;
 
-    private Weapon weapon;
-    public PlayerMovement driver;
-    // TODO change to Character after adding weapons to Character properly.
-    // TODO rename PlayerMovement to just Player or some shit.
-
-    void Start() {
-        this.weapon = new Gun(this.driver, "Machine Gun", this.bulletPrefab, 30, 8); 
-    }
+    public Character driver;
 
     void Update()
     {
