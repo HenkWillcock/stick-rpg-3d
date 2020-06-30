@@ -25,10 +25,10 @@ public class CameraMovement : MonoBehaviour
             transform.position = this.defaultOverheadPosition() + overheadLookAround();
         } else {
             transform.position = 
-                    this.gameController.gameFocus.position +
+                    this.gameController.gameFocus.rigidbody.position +
                     this.overheadHeight -
                     this.gameController.gameFocus.transform.forward * this.overheadOffset;
-            transform.LookAt(this.gameController.gameFocus.position);
+            transform.LookAt(this.gameController.gameFocus.rigidbody.position);
         }
 
         // TODO figure out smooth following without the vibration
@@ -43,12 +43,12 @@ public class CameraMovement : MonoBehaviour
 
         transform.position = defaultOverheadPosition();
 
-        transform.LookAt(this.gameController.gameFocus.position);
+        transform.LookAt(this.gameController.gameFocus.rigidbody.position);
     }
 
     private Vector3 defaultOverheadPosition() {
         return
-            this.gameController.gameFocus.position +
+            this.gameController.gameFocus.rigidbody.position +
             this.overheadHeight + 
             this.defaultOffset();
     }

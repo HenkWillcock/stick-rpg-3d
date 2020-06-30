@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public Rigidbody gameFocus;
-    public Rigidbody player;
+    public Character gameFocus;
+    public Character player;
 
     public CameraMovement cameraScript;
 
@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
         // TODO only call on SwitchFocus()
     }
 
-    public void SwitchFocus(Rigidbody newFocus) {
+    public void SwitchFocus(Character newFocus) {
         this.gameFocus = newFocus;
         this.timeUntilCanSwitchFocus = 5;
 

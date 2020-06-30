@@ -86,7 +86,7 @@ public class PlayerMovement : Character
                 Input.GetKeyUp("return") && 
                 this.gameController.CanSwitchFocus()
         ) {
-            this.gameController.SwitchFocus(other.attachedRigidbody);
+            this.gameController.SwitchFocus(other.gameObject.GetComponent<Character>());
             vehicleScript.driver = this;
             this.vehicle = vehicleScript;
             this.rigidbody.detectCollisions = false;

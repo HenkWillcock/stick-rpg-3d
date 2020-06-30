@@ -24,9 +24,9 @@ public abstract class VehicleDriving : MonoBehaviour
         if (this.isGameFocus()) {
             if (Input.GetKeyUp("return") && this.gameController.CanSwitchFocus()) {
                 // Exit Vehicle
-                gameController.player.gameObject.SetActive(true);
-                gameController.player.position = this.rigidbody.position + transform.right * -3;
+                gameController.player.rigidbody.position = this.rigidbody.position + transform.right * -3;
                 gameController.SwitchFocus(gameController.player);
+                gameController.player.vehicle = null;
             } else {
                 // Use Weapon.
                 if (Input.GetMouseButton(0)) {
