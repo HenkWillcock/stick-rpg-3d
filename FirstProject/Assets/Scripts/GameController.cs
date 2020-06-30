@@ -5,15 +5,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public Character gameFocus;
-    public Character player;
-
+    // TODO remove this entirely
     public CameraMovement cameraScript;
-
-    public Text vehicleText;
-
-    private int timeUntilCanSwitchFocus = 0;
-    public VehicleDriving vehicleComponent;
 
     void Start() {
         StartCoroutine(this.LateStart(0.1f));
@@ -21,38 +14,6 @@ public class GameController : MonoBehaviour
 
     IEnumerator LateStart(float waitTime) {
         yield return new WaitForSeconds(waitTime);
-        this.SwitchFocus(this.player);
-     }
-
-    void Update() {
-        if (timeUntilCanSwitchFocus > 0) {
-            timeUntilCanSwitchFocus--;
-        }
-        if (this.vehicleComponent != null) {
-            this.vehicleText.text = this.vehicleComponent.vehicleText();
-        } else {
-            this.vehicleText.text = "";
-        }
-
-        // TODO only call on SwitchFocus()
-    }
-
-    public void SwitchFocus(Character newFocus) {
-        this.gameFocus = newFocus;
-        this.timeUntilCanSwitchFocus = 5;
-
-        this.vehicleComponent = this.gameFocus.GetComponent<VehicleDriving>();
-
-        if (this.vehicleComponent != null) {
-            this.cameraScript.overheadMode = false;
-            this.cameraScript.recalculateCameraPosition(60, 30);
-        } else {
-            this.cameraScript.overheadMode = true;
-            this.cameraScript.recalculateCameraPosition(30, 25);
-        }
-    }
-
-    public bool CanSwitchFocus() {
-        return this.timeUntilCanSwitchFocus == 0;
+        this.cameraScript.recalculateCameraPosition(30, 25);
     }
 }

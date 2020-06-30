@@ -2529,6 +2529,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 2303341993306694937, guid: dbd404819786430838b1c6911231e330,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 562207722}
     - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
         type: 3}
       propertyPath: m_RootOrder
@@ -2654,8 +2659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b723c9cced5d25258a532fbc528d6237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameFocus: {fileID: 0}
-  player: {fileID: 0}
+  gameFocus: {fileID: 562207722}
+  player: {fileID: 562207722}
   cameraScript: {fileID: 1150670970}
   vehicleText: {fileID: 452105836}
   vehicleComponent: {fileID: 0}
@@ -3069,6 +3074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScript: {fileID: 562207722}
   weaponText: {fileID: 877211867}
+  vehicleText: {fileID: 452105836}
 --- !u!1001 &2003189634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3537,6 +3543,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7854459203794524213, guid: caa7cc09a280d28d297d00ff91c992e9,
+        type: 3}
+      propertyPath: cameraScript
+      value: 
+      objectReference: {fileID: 1150670970}
+    - target: {fileID: 7854459203794524213, guid: caa7cc09a280d28d297d00ff91c992e9,
+        type: 3}
+      propertyPath: transform
+      value: 
+      objectReference: {fileID: 148793283}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caa7cc09a280d28d297d00ff91c992e9, type: 3}
 --- !u!1001 &9133225866258164385

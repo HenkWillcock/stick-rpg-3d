@@ -10,25 +10,20 @@ public class CameraMovement : MonoBehaviour
     private Vector3 overheadHeight;
     private float overheadOffset;
 
-    private GameController gameController;
-
-    public bool overheadMode;
-
-    void Start()
-    {
-        this.gameController = GameObject.FindObjectOfType<GameController>();
-    }
+    public Character player;
 
     void LateUpdate()
     {
-        if(this.overheadMode) {
+        if(this.player.vehicle == null) {
             transform.position = this.defaultOverheadPosition() + overheadLookAround();
+
         } else {
             transform.position = 
-                    this.gameController.gameFocus.rigidbody.position +
+                    this.player.rigidbody.position +
                     this.overheadHeight -
-                    this.gameController.gameFocus.transform.forward * this.overheadOffset;
-            transform.LookAt(this.gameController.gameFocus.rigidbody.position);
+                    this.player.vehicle.transform.forward * this.overheadOffset;
+
+            transform.LookAt(this.player.rigidbody.position);
         }
 
         // TODO figure out smooth following without the vibration
@@ -43,12 +38,12 @@ public class CameraMovement : MonoBehaviour
 
         transform.position = defaultOverheadPosition();
 
-        transform.LookAt(this.gameController.gameFocus.rigidbody.position);
+        transform.LookAt(this.player.rigidbody.position);
     }
 
     private Vector3 defaultOverheadPosition() {
         return
-            this.gameController.gameFocus.rigidbody.position +
+            this.player.transform.position +
             this.overheadHeight + 
             this.defaultOffset();
     }

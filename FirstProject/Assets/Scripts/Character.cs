@@ -18,11 +18,13 @@ public abstract class Character : MonoBehaviour
     // Ranges from 0 to 10.
     // Used by NPCs to calculate sexual attaction.
 
-    public VehicleDriving vehicle;  // TODO populate
-    
+    public VehicleDriving vehicle;
+
     void Update() {
         if (this.vehicle != null) {
+            this.rigidbody.velocity = this.vehicle.rigidbody.velocity;
             this.rigidbody.position = this.vehicle.rigidbody.position;
+            this.vehicle.driveVehicle();
         }
         this.subUpdate();
     }

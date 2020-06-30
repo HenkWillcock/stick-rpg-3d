@@ -15,7 +15,6 @@ public class HelicopterDriving : VehicleDriving
         float decreaseRotorSpeed = System.Convert.ToSingle(Input.GetKey("down"));
         this.rotorSpeed += increaseRotorSpeed - decreaseRotorSpeed;
 
-
         // Cyclic controls
         float leftCyclic = System.Convert.ToSingle(Input.GetKey("q"));
         float rightCyclic = System.Convert.ToSingle(Input.GetKey("e"));
@@ -35,8 +34,6 @@ public class HelicopterDriving : VehicleDriving
         this.rigidbody.AddTorque(transform.up * leftRightTailRotor * 500);
 
         // Corrective Cyclic TODO
-
-
     }
 
     public override void idleVehicle() {
@@ -45,6 +42,10 @@ public class HelicopterDriving : VehicleDriving
 
         // Add lift
         this.rigidbody.AddForce(transform.up * this.rotorSpeed, ForceMode.Impulse);
+
+        if (this.driver == null && this.rotorSpeed > 0) {
+            this.rotorSpeed--;
+        }
     }
 
     public override string vehicleText()

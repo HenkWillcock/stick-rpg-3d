@@ -51,11 +51,7 @@ public class CarDriving : VehicleDriving
     }
 
     public override string vehicleText() {
-        if (this.isGameFocus()) {
-            return Mathf.Round(this.rigidbody.velocity.magnitude * 3.6f).ToString() + " km/h\n" +
-            "Gear: " + this.gear.ToString();
-        } else {
-            return "";
-        }
+        return Mathf.Round(this.rigidbody.velocity.magnitude * 3.6f).ToString() + " km/h\n" +
+        "Gear: " + this.gear.ToString();
     }
 }

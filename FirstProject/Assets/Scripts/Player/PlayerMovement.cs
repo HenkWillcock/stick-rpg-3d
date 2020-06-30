@@ -8,9 +8,12 @@ public class PlayerMovement : Character
 
     private List<Weapon> weapons;
     private int weaponIndex;
-    
-    private GameController gameController;
+
     public Transform transform;  // TODO put this on Character
+
+    public CameraMovement cameraScript;
+
+    private int lastInteracted = 0;
 
     public Weapon currentWeapon() {
         return this.weapons[this.weaponIndex];
@@ -27,8 +30,6 @@ public class PlayerMovement : Character
         this.weapons.Add(new Gun(this, "Pistol", this.bulletPrefab, 30, 30));
         this.weapons.Add(new Gun(this, "Machine Gun", this.bulletPrefab, 30, 8));
         this.weapons.Add(new Gun(this, "Sniper", this.bulletPrefab, 80, 60));
-
-        this.gameController = GameObject.FindObjectOfType<GameController>();
     }
 
     public override void subUpdate()
@@ -76,20 +77,39 @@ public class PlayerMovement : Character
                 this.weaponIndex += this.weapons.Count;
             }
         }
+
+        // Exit Vehicle
+        if (this.vehicle != null && Input.GetKeyUp("return") && this.lastInteracted == 0) {
+            this.cameraScript.recalculateCameraPosition(30, 25);
+            this.lastInteracted = 5;
+            this.rigidbody.velocity = this.vehicle.rigidbody.velocity;
+            this.rigidbody.position = this.vehicle.transform.position + this.vehicle.transform.right * 3;
+            this.vehicle.driver = null;
+            this.vehicle = null;
+            this.rigidbody.detectCollisions = true;
+        }
+
+        // Reduce Last Interacted
+        if (this.lastInteracted > 0) {
+            this.lastInteracted--;
+        }
     }
 
     public void OnTriggerStay(Collider other)
     {
+        // Enter Vehicle
         VehicleDriving vehicleScript = other.gameObject.GetComponent<VehicleDriving>();
         if (
                 vehicleScript != null && 
-                Input.GetKeyUp("return") && 
-                this.gameController.CanSwitchFocus()
+                Input.GetKeyUp("return") &&
+                this.lastInteracted == 0
+                
         ) {
-            this.gameController.SwitchFocus(other.gameObject.GetComponent<Character>());
+            this.lastInteracted = 5;
             vehicleScript.driver = this;
             this.vehicle = vehicleScript;
             this.rigidbody.detectCollisions = false;
+            this.cameraScript.recalculateCameraPosition(60, 30);
         }
     }
 

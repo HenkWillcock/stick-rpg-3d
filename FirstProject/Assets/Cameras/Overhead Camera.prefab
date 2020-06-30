@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookDistance: 20
-  angle: 40
-  distance: 50
+  player: {fileID: 7854459203794524213, guid: caa7cc09a280d28d297d00ff91c992e9, type: 3}
+  overheadMode: 0
