@@ -9,6 +9,7 @@ public class VitalStatBar : MonoBehaviour
     public PlayerVitalStat playerVitalStat;
 
     // TODO only call on stat change.
+    // TODO replace this with HUD.cs script
     void Update()
     {
         this.barFill.transform.localScale = new Vector3(playerVitalStat.remainingProportion(), 1, 1);

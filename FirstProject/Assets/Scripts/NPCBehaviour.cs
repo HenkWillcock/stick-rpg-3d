@@ -22,7 +22,7 @@ public class NPCBehaviour : Character
         this.behaviour = new AttackTargetBehaviour(
             this,
             this.player,
-            new Spin(this.rigidbody, "Spin", 15)
+            new Spin(this, "Spin", 15)
         );
 
         // Call ChangeBehaviourIfNecessary every 3 seconds.
@@ -31,7 +31,7 @@ public class NPCBehaviour : Character
         // TODO figure out how to update relationships.
     }
 
-    void Update() {
+    public override void subUpdate() {
         if (this.stunned) {
             // TODO set after being attacked.
             return;
@@ -58,7 +58,7 @@ public class NPCBehaviour : Character
                 this.behaviour = new AttackTargetBehaviour(
                     this,
                     relationship.character.transform,
-                    new Spin(this.rigidbody, "Spin", 15)
+                    new Spin(this, "Spin", 15)
                 );
             }
         }

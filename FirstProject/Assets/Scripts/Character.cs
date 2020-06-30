@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Represent either an NPC or a human Player.
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     [SerializeField] private float topSpeed;
     [SerializeField] private float acceleration;
@@ -12,12 +12,22 @@ public class Character : MonoBehaviour
     public Rigidbody rigidbody;
 
     protected int timeUntilJump = 0;
-
     public Gender gender;
 
     public int conventionalAttractiveness;
     // Ranges from 0 to 10.
     // Used by NPCs to calculate sexual attaction.
+
+    public VehicleDriving vehicle;  // TODO populate
+    
+    void Update() {
+        if (this.vehicle != null) {
+            this.rigidbody.position = this.vehicle.rigidbody.position;
+        }
+        this.subUpdate();
+    }
+
+    public abstract void subUpdate();
 
     public void MoveWithHeading(Vector3 heading) {
         float horizontalSpeed = Mathf.Sqrt(

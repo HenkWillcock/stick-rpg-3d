@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Weapon {
-    protected Rigidbody user;
+    protected Character user;
     private string name;
     public float rangeForNPC = 5;
 
-    public Weapon(Rigidbody user, string name) {
+    public Weapon(Character user, string name) {
         this.user = user;
         this.name = name;
     }
@@ -21,8 +21,8 @@ public abstract class Weapon {
     public virtual void npcBehaviour(Transform target) {return;}
 
     protected void aimPlayer(float offset) {
-        this.user.angularVelocity = Vector3.zero;
-        float angleToMouse = Helpers.angleFromPositionToMouse(this.user.position) + offset;
-        this.user.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.up);
+        this.user.rigidbody.angularVelocity = Vector3.zero;
+        float angleToMouse = Helpers.angleFromPositionToMouse(this.user.rigidbody.position) + offset;
+        this.user.rigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.up);
     }
 }

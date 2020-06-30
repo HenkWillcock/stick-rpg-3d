@@ -246,7 +246,6 @@ GameObject:
   - component: {fileID: 7854459203794524213}
   - component: {fileID: 7854459203794524214}
   - component: {fileID: 7854459203794524215}
-  - component: {fileID: 7854459203794524232}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -333,6 +332,8 @@ MonoBehaviour:
   rigidbody: {fileID: 7854459203794524210}
   gender: 0
   conventionalAttractiveness: 0
+  bulletPrefab: {fileID: 2535042043745489693, guid: eda99e83534bbd14dac118fd5ea2aa32,
+    type: 3}
 --- !u!114 &7854459203794524214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,18 +364,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 7854459203794524209}
---- !u!114 &7854459203794524232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7854459203794524233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51d5abecda9336c1aa3082681ff85f51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidbody: {fileID: 7854459203794524210}
-  bulletPrefab: {fileID: 2535042043745489693, guid: eda99e83534bbd14dac118fd5ea2aa32,
-    type: 3}

@@ -11,7 +11,7 @@ public class Gun : Weapon {
     private int timeUntilLoaded = 0;
 
     public Gun(
-            Rigidbody user,
+            Character user,
             string name,
             Rigidbody bulletPrefab,
             float bulletVelocity,
@@ -34,13 +34,13 @@ public class Gun : Weapon {
 
             if (Physics.Raycast(ray, out hit)) {  // TODO ignore hidden roofs
                 Vector3 objectHitPosition = hit.point;
-                Vector3 towardsObject = objectHitPosition - this.user.position;
+                Vector3 towardsObject = objectHitPosition - this.user.rigidbody.position;
                 towardsObject.Normalize();
 
                 Rigidbody bullet;
                 bullet = Object.Instantiate(
                     this.bulletPrefab,
-                    this.user.position + towardsObject * 3,
+                    this.user.rigidbody.position + towardsObject * 3,
                     Quaternion.LookRotation(towardsObject)
                 );
                 bullet.velocity = towardsObject * this.bulletVelocity;

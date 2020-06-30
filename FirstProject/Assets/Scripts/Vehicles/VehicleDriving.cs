@@ -10,10 +10,13 @@ public abstract class VehicleDriving : MonoBehaviour
 
     private GameController gameController;
     private Weapon weapon;
+    public PlayerMovement driver;  // TODO populate when entered.  
+    // TODO change to Character after adding weapons to Character properly.
+    // TODO rename PlayerMovement to just Player or some shit.
 
     void Start() {
         this.gameController = GameObject.FindObjectOfType<GameController>();
-        this.weapon = new Gun(this.rigidbody, "Machine Gun", this.bulletPrefab, 30, 8); 
+        this.weapon = new Gun(this.driver, "Machine Gun", this.bulletPrefab, 30, 8); 
     }
 
     void Update()
@@ -27,9 +30,10 @@ public abstract class VehicleDriving : MonoBehaviour
             } else {
                 // Use Weapon.
                 if (Input.GetMouseButton(0)) {
-                    this.weapon.effect();
+                    this.driver.currentWeapon().effect();
+
                 } else {
-                    this.weapon.idleEffect();
+                    this.driver.currentWeapon().idleEffect();
                 }
                 this.driveVehicle();
             }

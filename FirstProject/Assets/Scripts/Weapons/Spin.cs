@@ -6,7 +6,7 @@ public class Spin : Weapon {
     private float spinSpeed;
 
     public Spin(
-            Rigidbody user,
+            Character user,
             string name,
             float spinSpeed
         ) : base(user, name) {
@@ -15,10 +15,10 @@ public class Spin : Weapon {
     }
 
     public override void effect() {
-        float spinLoss = 1 - (this.user.angularVelocity.magnitude / this.spinSpeed);
+        float spinLoss = 1 - (this.user.rigidbody.angularVelocity.magnitude / this.spinSpeed);
 
-        this.user.AddTorque(
-            this.user.transform.up * spinLoss,
+        this.user.rigidbody.AddTorque(
+            this.user.rigidbody.transform.up * spinLoss,  // TODO check if can just go straight from character to transform.
             ForceMode.Impulse);
     }
 

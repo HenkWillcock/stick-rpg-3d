@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponText : MonoBehaviour
-{   
+public class HUD : MonoBehaviour
+{
+    public PlayerMovement playerScript;
     public Text weaponText;
-    public PlayerWeapons playerWeapons;
 
     void Update()
     {
-        this.weaponText.text = this.playerWeapons.currentWeapon().getName();
+        this.weaponText.text = this.playerScript.currentWeapon().getName();
     }
 }
