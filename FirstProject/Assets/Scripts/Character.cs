@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+// Represent either an NPC or a human Player.
+public class Character : MonoBehaviour
 {
     [SerializeField] private float topSpeed;
     [SerializeField] private float acceleration;

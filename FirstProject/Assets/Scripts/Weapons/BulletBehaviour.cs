@@ -7,6 +7,8 @@ public class BulletBehaviour : MonoBehaviour
     public Rigidbody rigidbody;
     public float lifeSpan;
 
+    public Character shooter;  // TODO use this to change relationships when bullet hits.
+
     void Start() {
         this.rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }

@@ -6,19 +6,19 @@ public class Spin : Weapon {
     private float spinSpeed;
 
     public Spin(
-            Rigidbody usersRigidbody,
+            Rigidbody user,
             string name,
             float spinSpeed
-        ) : base(usersRigidbody, name) {
+        ) : base(user, name) {
 
         this.spinSpeed = spinSpeed;
     }
 
     public override void effect() {
-        float spinLoss = 1 - (this.usersRigidbody.angularVelocity.magnitude / this.spinSpeed);
+        float spinLoss = 1 - (this.user.angularVelocity.magnitude / this.spinSpeed);
 
-        this.usersRigidbody.AddTorque(
-            this.usersRigidbody.transform.up * spinLoss,
+        this.user.AddTorque(
+            this.user.transform.up * spinLoss,
             ForceMode.Impulse);
     }
 

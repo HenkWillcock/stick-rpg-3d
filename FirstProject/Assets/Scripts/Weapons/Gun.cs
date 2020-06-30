@@ -11,12 +11,12 @@ public class Gun : Weapon {
     private int timeUntilLoaded = 0;
 
     public Gun(
-            Rigidbody usersRigidbody,
+            Rigidbody user,
             string name,
             Rigidbody bulletPrefab,
             float bulletVelocity,
             int reloadTime) :
-            base(usersRigidbody, name) 
+            base(user, name) 
         {
 
         this.bulletPrefab = bulletPrefab; //((GameObject)Resources.Load("Objects/Bullet", typeof(GameObject))).GetComponent<Rigidbody>();
@@ -34,16 +34,18 @@ public class Gun : Weapon {
 
             if (Physics.Raycast(ray, out hit)) {  // TODO ignore hidden roofs
                 Vector3 objectHitPosition = hit.point;
-                Vector3 towardsObject = objectHitPosition - this.usersRigidbody.position;
+                Vector3 towardsObject = objectHitPosition - this.user.position;
                 towardsObject.Normalize();
 
                 Rigidbody bullet;
                 bullet = Object.Instantiate(
                     this.bulletPrefab,
-                    this.usersRigidbody.position + towardsObject * 3,
+                    this.user.position + towardsObject * 3,
                     Quaternion.LookRotation(towardsObject)
                 );
                 bullet.velocity = towardsObject * this.bulletVelocity;
+                // bullet.GetComponent<BulletBehaviour>().shooter = this.user  
+                // TODO this.user should be a Character object
             }
 
             this.timeUntilLoaded = this.reloadTime;

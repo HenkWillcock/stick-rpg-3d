@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : Movement
+public class PlayerMovement : Character
 {
     private Rigidbody vehicle;
 

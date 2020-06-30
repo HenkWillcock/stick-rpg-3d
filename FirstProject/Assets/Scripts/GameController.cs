@@ -16,11 +16,6 @@ public class GameController : MonoBehaviour
     public VehicleDriving vehicleComponent;
 
     void Start() {
-        // while(this.cameraScript == null) {
-        //     int x = 5;
-        // }
-        // this.cameraScript.overheadMode = true;
-        // this.cameraScript.recalculateCameraPosition(30, 25);
         StartCoroutine(this.LateStart(0.1f));
     }
 
