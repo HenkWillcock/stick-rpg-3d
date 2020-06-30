@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     public Rigidbody gameFocus;
     public Rigidbody player;
 
-    public CameraMovement camera;
+    public CameraMovement cameraScript;
 
     public Text vehicleText;
 
@@ -16,9 +16,18 @@ public class GameController : MonoBehaviour
     public VehicleDriving vehicleComponent;
 
     void Start() {
-        this.camera.overheadMode = true;
-        this.camera.recalculateCameraPosition(30, 25);
+        // while(this.cameraScript == null) {
+        //     int x = 5;
+        // }
+        // this.cameraScript.overheadMode = true;
+        // this.cameraScript.recalculateCameraPosition(30, 25);
+        StartCoroutine(this.LateStart(0.1f));
     }
+
+    IEnumerator LateStart(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        this.SwitchFocus(this.player);
+     }
 
     void Update() {
         if (timeUntilCanSwitchFocus > 0) {
@@ -40,11 +49,11 @@ public class GameController : MonoBehaviour
         this.vehicleComponent = this.gameFocus.GetComponent<VehicleDriving>();
 
         if (this.vehicleComponent != null) {
-            this.camera.overheadMode = false;
-            this.camera.recalculateCameraPosition(60, 30);
+            this.cameraScript.overheadMode = false;
+            this.cameraScript.recalculateCameraPosition(60, 30);
         } else {
-            this.camera.overheadMode = true;
-            this.camera.recalculateCameraPosition(30, 25);
+            this.cameraScript.overheadMode = true;
+            this.cameraScript.recalculateCameraPosition(30, 25);
         }
     }
 

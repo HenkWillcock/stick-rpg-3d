@@ -672,6 +672,16 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 148793283}
+    - target: {fileID: 7470300833599067817, guid: 2cf74afb95f6e125ebbbeadf58ba1a34,
+        type: 3}
+      propertyPath: topSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470300833599067817, guid: 2cf74afb95f6e125ebbbeadf58ba1a34,
+        type: 3}
+      propertyPath: acceleration
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cf74afb95f6e125ebbbeadf58ba1a34, type: 3}
 --- !u!4 &359195043 stripped
@@ -2542,41 +2552,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 11.398821
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 23.032799
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -80.96875
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.17364825
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9848078
-      objectReference: {fileID: 0}
-    - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
-        type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
@@ -2594,6 +2569,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303341993306694942, guid: dbd404819786430838b1c6911231e330,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbd404819786430838b1c6911231e330, type: 3}
@@ -2697,7 +2677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameFocus: {fileID: 22766789}
   player: {fileID: 22766789}
-  camera: {fileID: 1150670970}
+  cameraScript: {fileID: 1150670970}
   vehicleText: {fileID: 452105836}
   vehicleComponent: {fileID: 0}
 --- !u!4 &1651650010

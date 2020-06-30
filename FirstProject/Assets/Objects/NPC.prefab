@@ -48,7 +48,7 @@ MonoBehaviour:
   acceleration: 2
   jumpForce: 5
   rigidbody: {fileID: 7650742754667731887}
-  player: {fileID: 0}
+  player: {fileID: 4366307511163599755}
 --- !u!1001 &2571729647112286099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -127,6 +127,12 @@ Transform:
 --- !u!54 &7650742754667731887 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 5304250263533188156, guid: 9209ac532e76c94bd88d78f7193ee75c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2571729647112286099}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4366307511163599755 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2245224670757475352, guid: 9209ac532e76c94bd88d78f7193ee75c,
     type: 3}
   m_PrefabInstance: {fileID: 2571729647112286099}
   m_PrefabAsset: {fileID: 0}

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : Movement
 {
-    private int timeUntilJump = 0;
     private Rigidbody vehicle;
 
     void Update()

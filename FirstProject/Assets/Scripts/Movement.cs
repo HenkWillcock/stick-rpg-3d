@@ -10,7 +10,13 @@ public class Movement : MonoBehaviour
 
     public Rigidbody rigidbody;
 
-    private int timeUntilJump = 0;
+    protected int timeUntilJump = 0;
+
+    public Gender gender;
+
+    public int conventionalAttractiveness;
+    // Ranges from 0 to 10.
+    // Used by NPCs to calculate sexual attaction.
 
     public void MoveWithHeading(Vector3 heading) {
         float horizontalSpeed = Mathf.Sqrt(
@@ -18,12 +24,14 @@ public class Movement : MonoBehaviour
             Mathf.Pow(this.rigidbody.velocity.z, 2)
         );
 
-        heading.y = 0;
-        heading.Normalize();
-        rigidbody.AddForce(
-            heading*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed,
-            ForceMode.Impulse
-        );
+        if (horizontalSpeed < this.topSpeed) {
+            heading.y = 0;
+            heading.Normalize();
+            rigidbody.AddForce(
+                heading*acceleration*(this.topSpeed - horizontalSpeed)/this.topSpeed,
+                ForceMode.Impulse
+            );
+        }
     }
 
     public void JumpIfGrounded() {
@@ -38,4 +46,11 @@ public class Movement : MonoBehaviour
             );
         }
     }
+}
+
+public enum Gender {
+    Male,
+    Female,
+    Neither,
+    Both
 }
