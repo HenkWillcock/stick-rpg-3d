@@ -11,21 +11,23 @@ public class Gun : Weapon {
     private int timeUntilLoaded = 0;
 
     public Gun(
-            Character user,
-            string name,
-            Rigidbody bulletPrefab,
-            float bulletVelocity,
-            int reloadTime) :
-            base(user, name) 
+        Character user,
+        string name,
+        Rigidbody bulletPrefab,
+        float bulletVelocity,
+        int reloadTime
+    ) : 
+        base(user, name) 
         {
 
         this.bulletPrefab = bulletPrefab;
         this.bulletVelocity = bulletVelocity;
         this.reloadTime = reloadTime;
+        this.rangeForNPC = 15f;
     }
 
     public override void effect() {
-        // aimPlayer(0);  TODO figure out good way to give this back to player
+        // user.AimTowardsMouse(0);  // TODO AimInDirection
 
         if (this.timeUntilLoaded == 0) {
 
@@ -37,8 +39,9 @@ public class Gun : Weapon {
                 Vector3 towardsObject = objectHitPosition - this.user.rigidbody.position;
                 towardsObject.Normalize();
 
-                Rigidbody bullet;
-                bullet = Object.Instantiate(
+                user.AimInDirection(towardsObject, 0);
+
+                Rigidbody bullet = Object.Instantiate(
                     this.bulletPrefab,
                     this.user.rigidbody.position + towardsObject * 3,
                     Quaternion.LookRotation(towardsObject)

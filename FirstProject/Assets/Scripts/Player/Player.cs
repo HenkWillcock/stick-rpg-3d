@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Player : Character
 {
-    public Rigidbody bulletPrefab;
+    public Rigidbody bulletPrefab;  // TODO remove this, have a class which is a list of bullet prefabs.
 
-    private List<Weapon> weapons;
     private int weaponIndex;
 
     public Transform transform;  // TODO put this on Character
@@ -15,26 +14,17 @@ public class Player : Character
 
     private int lastInteracted = 0;
 
-    public Weapon currentWeapon() {
-        return this.weapons[this.weaponIndex];
-    }
-
     void Start()
     {
-        base.Start();
-
         rigidbody.maxAngularVelocity = 30;
 
-        this.weapons = new List<Weapon>();
-
-        // TODO add PlayerHealth to Character, as both NPCs and Players should have this
         this.weapons.Add(new Spin(this, "Spin", 15));
         this.weapons.Add(new Gun(this, "Pistol", this.bulletPrefab, 30, 30));
         this.weapons.Add(new Gun(this, "Machine Gun", this.bulletPrefab, 30, 8));
         this.weapons.Add(new Gun(this, "Sniper", this.bulletPrefab, 80, 60));
     }
 
-    public override void subUpdate()
+    public override void frameUpdate()
     {
         // WASD Movement
         float leftRightMovement = 
@@ -60,7 +50,7 @@ public class Player : Character
             this.currentWeapon().effect();
         } else {
             this.currentWeapon().idleEffect();
-            aimPlayer(90);
+            this.AimTowardsMouse(90);
         }
 
         // Select Next Weapon
@@ -96,25 +86,26 @@ public class Player : Character
     public void OnTriggerStay(Collider other)
     {
         // Enter Vehicle
-        VehicleDriving vehicleScript = other.gameObject.GetComponent<VehicleDriving>();
+        Vehicle vehicle = other.gameObject.GetComponent<Vehicle>();
 
-        if (vehicleScript != null && Input.GetKeyUp("return") && this.lastInteracted == 0) {
+        if (vehicle != null && Input.GetKeyUp("return") && this.lastInteracted == 0) {
             this.lastInteracted = 5;
-            this.EnterVehicle(vehicleScript);
+            this.EnterVehicle(vehicle);
             this.cameraScript.recalculateCameraPosition(60, 30);
         }
     }
 
-    protected void aimPlayer(float offset) {
-        this.rigidbody.angularVelocity = Vector3.zero;
-        float angleToMouse = Helpers.angleFromPositionToMouse(this.rigidbody.position) + offset;
-        this.rigidbody.rotation = Quaternion.AngleAxis(angleToMouse, Vector3.up);
+    public Weapon currentWeapon() {
+        return this.weapons[this.weaponIndex];
     }
-}
 
-public class Helpers {
-    public static float angleFromPositionToMouse(Vector3 position) {
-        Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(position);
-        return Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+    public void AimTowardsMouse(float offset) {
+        Vector3 directionToMouse = 
+                Input.mousePosition - 
+                Camera.main.WorldToScreenPoint(this.rigidbody.position);
+
+        directionToMouse.z = directionToMouse.y;  // Because X and Z are the horizontal coordinates.
+
+        this.AimInDirection(directionToMouse, offset);
     }
 }

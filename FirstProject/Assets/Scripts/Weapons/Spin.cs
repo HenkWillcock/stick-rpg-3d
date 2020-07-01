@@ -12,6 +12,7 @@ public class Spin : Weapon {
         ) : base(user, name) {
 
         this.spinSpeed = spinSpeed;
+        this.rangeForNPC = 1.5f;
     }
 
     public override void effect() {
@@ -20,9 +21,5 @@ public class Spin : Weapon {
         this.user.rigidbody.AddTorque(
             this.user.rigidbody.transform.up * spinLoss,  // TODO check if can just go straight from character to transform.
             ForceMode.Impulse);
-    }
-
-    public override void npcBehaviour(Transform target) {
-        // TODO handling all the behaviour in here doesn't seem like a good idea
     }
 }

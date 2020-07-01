@@ -5,6 +5,9 @@ using UnityEngine;
 // Represent either an NPC or a human Player.
 public abstract class Character : MonoBehaviour
 {
+    public static float IMPULSE_DAMAGE_MULTIPLIER = 1f;
+    public static float DESPAWN_TIME = 15f;
+
     [SerializeField] private float topSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private float jumpForce;
@@ -18,31 +21,63 @@ public abstract class Character : MonoBehaviour
     // Ranges from 0 to 10.
     // Used by NPCs to calculate sexual attaction.
 
-    public VehicleDriving vehicle;
+    public Vehicle vehicle;
 
-    public float maxHealth;
-    public float impulseDamageMultiplier;
-    public float minImpulseForDamage;
-    public float impulseRecovery;
     public float healthRegen;
 
+    public List<Weapon> weapons;  // TODO expand this to be List<Item> inventory, where Item is base class of Weapon
+
+    private int stunTime = 0;
+
+    private bool dead;
+
+    private float maxHealth;
     private float currentHealth;
     private float recentImpulseMagnitude;
+    private float minImpulseForDamage;
+    private float impulseRecovery;
 
-    public void Start() {
+    public Character() {
+        this.weapons = new List<Weapon>();
+
+        this.maxHealth = 100;
+        this.impulseRecovery = 0.1f;  // TODO find a better way
         this.currentHealth = this.maxHealth;
         this.recentImpulseMagnitude = 0;
+
+        if (this.jumpForce < 13) {
+            this.minImpulseForDamage = 10;
+        } else {
+            // Shouldn't be able to take fall damage from a jump.
+            this.minImpulseForDamage = this.jumpForce - 3;
+        }
     }
 
-    void Update() {
+    public void Start() {
+        InvokeRepeating("RegenerateHealth", 0f, 1f);
+    }
+
+    public void Update() {
+        if (this.dead) {
+            return;
+        }
+
+        if (this.stunTime > 0) {
+            stunTime--;
+            return;
+        }
+
+        this.frameUpdate();
+
         // Drive Vehicle
         if (this.vehicle != null) {
             this.rigidbody.velocity = this.vehicle.rigidbody.velocity;
             this.rigidbody.position = this.vehicle.rigidbody.position;
             this.vehicle.driveVehicle();  // TODO this won't work with NPCs
         }
-        this.subUpdate();  // TODO replace with base.Update();
     }
+
+    public abstract void frameUpdate();
 
     public void LateUpdate() {
         if (this.recentImpulseMagnitude > this.impulseRecovery) {
@@ -50,17 +85,15 @@ public abstract class Character : MonoBehaviour
         } else {
             this.recentImpulseMagnitude = 0;
         }
+    }
 
-        // Health Regen
-        // TODO sort out
+    public void RegenerateHealth() {
         if (this.currentHealth < this.maxHealth - this.healthRegen) {
-            this.currentHealth += this.healthRegen * Time.deltaTime;
-        } else if (this.currentHealth < this.healthRegen) {
+            this.currentHealth += this.healthRegen;
+        } else {
             this.currentHealth = this.maxHealth;
         }
     }
-
-    public abstract void subUpdate();
 
     public void MoveWithHeading(Vector3 heading) {
         float horizontalSpeed = Mathf.Sqrt(
@@ -91,7 +124,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public void EnterVehicle(VehicleDriving vehicle) {
+    public void EnterVehicle(Vehicle vehicle) {
         vehicle.driver = this;
         this.vehicle = vehicle;
         this.rigidbody.detectCollisions = false;
@@ -106,25 +139,28 @@ public abstract class Character : MonoBehaviour
     }
 
     public void OnCollisionEnter(Collision collision) {
-        if (this.tag != "Player") {
-            Debug.Log(this.currentHealth);
-        }
-
         this.recentImpulseMagnitude += collision.impulse.magnitude;
 
         if (this.recentImpulseMagnitude > this.minImpulseForDamage) {
             // TODO instant death bug, probably to do with qucik accelleration in opposite directions within
             // like 1 frame.
             float impulseDamage = this.recentImpulseMagnitude - this.minImpulseForDamage;
-            this.currentHealth -= Mathf.Pow(impulseDamage, 2) * this.impulseDamageMultiplier;
             this.recentImpulseMagnitude -= impulseDamage;
+            float healthLoss = Mathf.Pow(impulseDamage, 2) * Character.IMPULSE_DAMAGE_MULTIPLIER;
+            this.currentHealth -= healthLoss;
+            this.stunTime = System.Convert.ToInt32(healthLoss * 2);
         }
 
         if (this.currentHealth < 0) {
-            // TODO why don't NPCs die?
-            this.enabled = false;
+            this.dead = true;
             this.currentHealth = 0;
         }
+    }
+
+    public void AimInDirection(Vector3 direction, float offset) {
+        this.rigidbody.angularVelocity = Vector3.zero;
+        float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + offset;
+        this.rigidbody.rotation = Quaternion.AngleAxis(angle, Vector3.up);
     }
 
     public float remainingHealthPortion() {

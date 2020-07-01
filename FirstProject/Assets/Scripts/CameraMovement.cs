@@ -12,6 +12,15 @@ public class CameraMovement : MonoBehaviour
 
     public Character player;
 
+    void Start() {
+        StartCoroutine(this.LateStart(0.1f));
+    }
+
+    IEnumerator LateStart(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        this.recalculateCameraPosition(30, 25);
+    }
+
     void LateUpdate()
     {
         if(this.player.vehicle == null) {

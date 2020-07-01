@@ -128,15 +128,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topSpeed: 5
   acceleration: 2
-  jumpForce: 5
+  jumpForce: 15
   rigidbody: {fileID: 8253600624024493402}
   gender: 0
   conventionalAttractiveness: 0
   vehicle: {fileID: 0}
-  maxHealth: 100
-  impulseDamageMultiplier: 2
-  minImpulseForDamage: 12
-  impulseRecovery: 0.5
   healthRegen: 1
   player: {fileID: 2724552041553463575}
 --- !u!54 &8253600624024493402
