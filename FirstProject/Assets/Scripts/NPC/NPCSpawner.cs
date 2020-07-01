@@ -31,14 +31,17 @@ public class NPCSpawner : MonoBehaviour
 
         if (Random.Range(0f, 1f) > 0.5f) {
             npc.weapons.Add(new Gun(
-                npc, 
+                npc,
                 "NPC Gun",
                 this.bulletPrefab,
-                Random.Range(20, 80),
+                Random.Range(10, 40),
                 Random.Range(30, 5)
             ));
         } else {
             npc.weapons.Add(new Spin(npc, "Spin", Random.Range(15, 30)));
         }
+
+        npc.healthRegen = Random.Range(0, 2);
+        npc.updateMaxHealth(Random.Range(50, 300));
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Vehicle : MonoBehaviour
+public abstract class Vehicle : Entity
 {
     // TODO create a class Entity which Vehicle and Character both extend.
     // Will give health and anything else they share.
@@ -24,4 +24,6 @@ public abstract class Vehicle : MonoBehaviour
     }
 
     public abstract string vehicleText();
+
+    public override void doOtherDamageEffects(Collision collision, float damageAmount) {}
 }

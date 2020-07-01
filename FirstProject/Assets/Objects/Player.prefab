@@ -331,11 +331,7 @@ MonoBehaviour:
   gender: 0
   conventionalAttractiveness: 0
   vehicle: {fileID: 0}
-  maxHealth: 100
-  impulseDamageMultiplier: 2
-  minImpulseForDamage: 12
-  impulseRecovery: 1
-  healthRegen: 5
+  healthRegen: 1
   bulletPrefab: {fileID: 2535042043745489693, guid: eda99e83534bbd14dac118fd5ea2aa32,
     type: 3}
   transform: {fileID: 7854459203794524209}

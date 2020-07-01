@@ -16,7 +16,7 @@ public class Gun : Weapon {
         Rigidbody bulletPrefab,
         float bulletVelocity,
         int reloadTime
-    ) : 
+    ) :
         base(user, name) 
         {
 
@@ -26,20 +26,12 @@ public class Gun : Weapon {
         this.rangeForNPC = 15f;
     }
 
-    public override void effect() {
-        // user.AimTowardsMouse(0);  // TODO AimInDirection
+    public override void effect(Vector3 targetPosition) {
+            Vector3 towardsObject = targetPosition - this.user.rigidbody.position;
+            this.user.AimInDirection(towardsObject, 0);
 
-        if (this.timeUntilLoaded == 0) {
-
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit)) {  // TODO ignore hidden roofs
-                Vector3 objectHitPosition = hit.point;
-                Vector3 towardsObject = objectHitPosition - this.user.rigidbody.position;
+            if (this.timeUntilLoaded == 0) {
                 towardsObject.Normalize();
-
-                user.AimInDirection(towardsObject, 0);
 
                 Rigidbody bullet = Object.Instantiate(
                     this.bulletPrefab,
@@ -48,13 +40,9 @@ public class Gun : Weapon {
                 );
                 bullet.velocity = towardsObject * this.bulletVelocity;
                 bullet.GetComponent<BulletBehaviour>().shooter = this.user;
+
+                this.timeUntilLoaded = this.reloadTime;
             }
-
-            this.timeUntilLoaded = this.reloadTime;
-
-        } else if (this.timeUntilLoaded > 0)  {
-            this.timeUntilLoaded -= 1;
-        }
     }
 
     public override void idleEffect() {

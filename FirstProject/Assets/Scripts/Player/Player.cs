@@ -16,9 +16,10 @@ public class Player : Character
 
     void Start()
     {
-        rigidbody.maxAngularVelocity = 30;
+        base.Start();
 
         this.weapons.Add(new Spin(this, "Spin", 15));
+        this.weapons.Add(new Spin(this, "Super Spin", 30));
         this.weapons.Add(new Gun(this, "Pistol", this.bulletPrefab, 30, 30));
         this.weapons.Add(new Gun(this, "Machine Gun", this.bulletPrefab, 30, 8));
         this.weapons.Add(new Gun(this, "Sniper", this.bulletPrefab, 80, 60));
@@ -47,16 +48,23 @@ public class Player : Character
 
         // Use Weapon
         if (Input.GetMouseButton(0)) {
-            this.currentWeapon().effect();
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit)) {  // TODO ignore hidden roofs
+                Vector3 objectHitPosition = hit.point;
+                this.currentWeapon().effect(objectHitPosition);
+            }
         } else {
-            this.currentWeapon().idleEffect();
             this.AimTowardsMouse(90);
         }
 
+        this.currentWeapon().idleEffect();
+
         // Select Next Weapon
-        if (Input.mouseScrollDelta.y > 0) {
+        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyUp(".")) {
             this.weaponIndex++;
-        } else if (Input.mouseScrollDelta.y < 0) {
+        } else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyUp(",")) {
             this.weaponIndex--;
         }
 

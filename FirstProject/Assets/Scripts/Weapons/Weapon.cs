@@ -14,7 +14,7 @@ public abstract class Weapon {
 
     public string getName() {return this.name;}
 
-    public abstract void effect();
+    public abstract void effect(Vector3 targetPosition);
 
     public virtual void idleEffect() {return;}
 }

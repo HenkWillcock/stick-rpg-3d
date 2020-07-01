@@ -15,7 +15,7 @@ public class Spin : Weapon {
         this.rangeForNPC = 1.5f;
     }
 
-    public override void effect() {
+    public override void effect(Vector3 targetPosition) {
         float spinLoss = 1 - (this.user.rigidbody.angularVelocity.magnitude / this.spinSpeed);
 
         this.user.rigidbody.AddTorque(

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPC : Character
 {
-    private float senseDistance = 100f;
+    private float senseDistance;
     private Behaviour behaviour;
     private Weapon weapon;
     private Gender genderAttractedTo;
@@ -12,7 +12,8 @@ public class NPC : Character
 
     public NPC() {
         this.relationships = new RelationshipList();
-        this.behaviour = new DocileBehaviour(this);
+        this.behaviour = null;
+        this.senseDistance = 30f;
     }
 
     void Start() {
@@ -22,56 +23,74 @@ public class NPC : Character
 
     public override void frameUpdate()
     {
-        this.behaviour.doBehaviour();
+        if (this.hasBehaviour()) {
+            this.behaviour.doBehaviour();
+            if (this.behaviour.isComplete()) {
+                this.behaviour = null;
+            }
+        } else {
+            this.AimInDirection(new Vector3(0, 0, 0), 0f);
+        }
     }
 
     void ChangeBehaviourIfNecessary() {
-        // Logic for changing behaviour. TODO doesn't need to happen every frame.
         RelationshipList relationshipsInRange = this.relationships.relationshipsInRange(
             this.rigidbody.transform.position,
             this.senseDistance
         );
 
+        // Attack Nearby Enemy Characters
         foreach (Relationship relationship in relationshipsInRange) {
-            if (relationship.friendliness < 25) {
+            if (relationship.friendliness <= 15) {
+                Weapon weapon;
+
+                if (this.weapons.Count >= 1) {
+                    weapon = this.weapons[0];
+                } else {
+                    weapon = new Spin(this, "Spin", 15);
+                }
+
                 this.behaviour = new AttackTargetBehaviour(
                     this,
-                    relationship.character.transform,
-                    this.weapons[0]
+                    relationship.character,
+                    weapon
+                );
+            }
+        }
+
+        // Randomly Walk Somewhere
+        if (!this.hasBehaviour()) {
+            if (Random.Range(0f, 1f) > 0.9f) {
+                this.behaviour = new WalkToTargetBehaviour(
+                    this, 
+                    new Vector3(
+                        this.rigidbody.position.x + Random.Range(-20f, 20f),
+                        5,
+                        this.rigidbody.position.z + Random.Range(-20f, 20f)
+                    )
                 );
             }
         }
     }
 
-    public void OnCollisionEnter(Collision collision) {
-        base.OnCollisionEnter(collision);
+    public override void doOtherDamageEffects(Collision collision, float damageAmount) {
+        base.doOtherDamageEffects(collision, damageAmount);
+
+        // Reduce friendliness by damage dealt once sorted.
 
         BulletBehaviour bullet = collision.gameObject.GetComponent<BulletBehaviour>();
-
         if (bullet != null) {
-            Relationship relationshipToShooter = this.relationships.getRelationshipForCharacter(bullet.shooter);
-
-            if (relationshipToShooter != null) {
-                relationshipToShooter.friendliness -= 5;
-            } else {
-                Relationship newRelationship = new Relationship(bullet.shooter);
-                newRelationship.friendliness -= 5;
-                this.relationships.Add(newRelationship);
-            }
+            this.relationships.changeCharacterFriendliness(bullet.shooter, -40);
         }
 
         Character character = collision.gameObject.GetComponent<Character>();
-
         if (character != null) {
-            Relationship relationshipToAttacker = this.relationships.getRelationshipForCharacter(character);
+            this.relationships.changeCharacterFriendliness(character, -5);
+        }
 
-            if (relationshipToAttacker != null) {
-                relationshipToAttacker.friendliness -= 5;
-            } else {
-                Relationship newRelationship = new Relationship(character);
-                newRelationship.friendliness -= 5;
-                this.relationships.Add(newRelationship);
-            }
+        Vehicle vehicle = collision.gameObject.GetComponent<Vehicle>();
+        if (vehicle != null) {
+            this.relationships.changeCharacterFriendliness(vehicle.driver, -40);
         }
     }
 
@@ -81,5 +100,9 @@ public class NPC : Character
         } else {
             return 0;
         }
+    }
+
+    private bool hasBehaviour() {
+        return this.behaviour != null;
     }
 }
