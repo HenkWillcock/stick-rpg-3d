@@ -1,20 +1,16 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - BulletBehaviour
+    - Bullet
     - CameraMovement
-    - CarDriving
-    - GameController
-    - HUDText
-    - HelicopterDriving
-    - NPCBehaviour
-    - PlayerHealth
-    - PlayerInteraction
-    - PlayerMovement
-    - PlayerWeapons
+    - Car
+    - HUD
+    - Helicopter
+    - NPC
+    - NPCSpawner
+    - Player
     - RoofDisappear
     - RotateWheel
-    - VitalStatBar
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
@@ -54,43 +50,35 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9250}
+      Script: {instanceID: 9332}
     - Class: 114
-      Script: {instanceID: 9330}
+      Script: {instanceID: 9344}
     - Class: 114
-      Script: {instanceID: 9342}
+      Script: {instanceID: 9352}
     - Class: 114
-      Script: {instanceID: 9350}
+      Script: {instanceID: 9386}
     - Class: 114
-      Script: {instanceID: 9384}
+      Script: {instanceID: 9390}
     - Class: 114
-      Script: {instanceID: 9388}
+      Script: {instanceID: 9442}
     - Class: 114
-      Script: {instanceID: 9440}
+      Script: {instanceID: 9596}
     - Class: 114
-      Script: {instanceID: 9614}
+      Script: {instanceID: 9670}
     - Class: 114
-      Script: {instanceID: 9664}
+      Script: {instanceID: 9820}
     - Class: 114
-      Script: {instanceID: 9814}
+      Script: {instanceID: 10024}
     - Class: 114
-      Script: {instanceID: 10004}
+      Script: {instanceID: 10140}
     - Class: 114
-      Script: {instanceID: 10128}
+      Script: {instanceID: 10154}
     - Class: 114
-      Script: {instanceID: 10218}
+      Script: {instanceID: 10244}
     - Class: 114
-      Script: {instanceID: 10226}
+      Script: {instanceID: 10292}
     - Class: 114
-      Script: {instanceID: 10266}
-    - Class: 114
-      Script: {instanceID: 10366}
-    - Class: 114
-      Script: {instanceID: 10380}
-    - Class: 114
-      Script: {instanceID: 10592}
-    - Class: 114
-      Script: {instanceID: 10602}
+      Script: {instanceID: 10618}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -132,12 +120,6 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
-      Hash: fc5a446110ff5e4847e9781f86e34be8
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: VitalStatBar
-  - hash:
-      serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -154,12 +136,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 972937c1d8c1ff297dfd19b5e2d6008f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WeaponText
   - hash:
       serializedVersion: 2
       Hash: cf9f5cf2c3145a37ac07f00e50e460f9
@@ -360,10 +336,10 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: 7c323b15c1ac88e6f4f060b7cc7fe71b
+      Hash: f2e25a3a3082f627f2112a85c031a382
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: BulletBehaviour
+    className: Bullet
   - hash:
       serializedVersion: 2
       Hash: cf9f5cf2c3145a37ac07f00e50e460f9
@@ -564,16 +540,16 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
+      Hash: 4d9ddc35177f0b26057b73b4c7ea4f3c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HUD
+  - hash:
+      serializedVersion: 2
       Hash: f08a111e17bb701f9c9ec57bb78d9920
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AnimationTrack
-  - hash:
-      serializedVersion: 2
-      Hash: c785d4e07f254c6498cf05e71f045bc1
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerHealth
   - hash:
       serializedVersion: 2
       Hash: 00274a21279f5cb831ce20f895049e38
@@ -624,10 +600,10 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: b1e02cc8987d30a037554952531da787
+      Hash: d17a47249efd14556b592908e43590fa
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: CarDriving
+    className: Car
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -666,10 +642,10 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 1f31017d756bf016f91e868f454f9fa8
+      Hash: 9e257df7934689a366cc0bb6fa2d3f7e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: PlayerMovement
+    className: Player
   - hash:
       serializedVersion: 2
       Hash: 3f8d7b92a6be3c715e55d5cfa7cc8384
@@ -696,7 +672,13 @@ ScriptsOnlyBuild:
     className: ActivationPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 585eedfab724c47bbfb59232f2305d10
+      Hash: 83c75effc41bb13044256fa7bd8a2c56
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NPCSpawner
+  - hash:
+      serializedVersion: 2
+      Hash: 6a305c7a2fd425fe4a421d930f03aa9f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraMovement
@@ -744,16 +726,10 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: f3ac7dfd661e63c57ac856ebf8a68fce
+      Hash: b783ef425fdb069d676e67f15b353922
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: NPCBehaviour
-  - hash:
-      serializedVersion: 2
-      Hash: 3a9b9173bb45f64619fc1342425ea93e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: HUDText
+    className: NPC
   - hash:
       serializedVersion: 2
       Hash: ee0cef6caaac8ae485bfa82f000f0f7b
@@ -768,10 +744,10 @@ ScriptsOnlyBuild:
     className: DataPrivacyButton
   - hash:
       serializedVersion: 2
-      Hash: ae644c68b3844662bc8e6caf31454703
+      Hash: cd59a985d5a597b6b0444d2d969dbcd8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: HelicopterDriving
+    className: Helicopter
   - hash:
       serializedVersion: 2
       Hash: f336e086360abe49a3323e5f1583c35a
@@ -780,22 +756,10 @@ ScriptsOnlyBuild:
     className: AudioTrack
   - hash:
       serializedVersion: 2
-      Hash: 4e0d08e1bc7b921cb9e99ab46e76a2f1
+      Hash: 6fed639c07dbaeac0b6791ede51aa58a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
-  - hash:
-      serializedVersion: 2
-      Hash: 03e890afe5cecb70cc10e01cb0ddc232
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerWeapons
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: FollowingCamera
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -822,12 +786,6 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: 1f31017d756bf016f91e868f454f9fa8
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Movement
-  - hash:
-      serializedVersion: 2
       Hash: 8649814970b42d345b89944b862453cc
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -838,12 +796,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoofDisappear
-  - hash:
-      serializedVersion: 2
-      Hash: 38338ae23d0a8ef8b69d18c10a5cc750
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerInteraction
   - hash:
       serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744

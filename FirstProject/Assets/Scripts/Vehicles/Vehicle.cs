@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Vehicle : Entity
+public abstract class Vehicle : HealthEntity
 {
     // TODO create a class Entity which Vehicle and Character both extend.
     // Will give health and anything else they share.

@@ -59,7 +59,13 @@
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Entity.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\HealthEntity.cs" />
      <Compile Include="Assets\Scripts\HUD\HUD.cs" />
+     <Compile Include="Assets\Scripts\Items\Bullet.cs" />
+     <Compile Include="Assets\Scripts\Items\Gun.cs" />
+     <Compile Include="Assets\Scripts\Items\Item.cs" />
+     <Compile Include="Assets\Scripts\Items\Shotgun.cs" />
+     <Compile Include="Assets\Scripts\Items\Spin.cs" />
      <Compile Include="Assets\Scripts\NPC\Behaviour.cs" />
      <Compile Include="Assets\Scripts\NPC\NPC.cs" />
      <Compile Include="Assets\Scripts\NPC\NPCSpawner.cs" />
@@ -71,10 +77,6 @@
      <Compile Include="Assets\Scripts\Vehicles\Helicopter.cs" />
      <Compile Include="Assets\Scripts\Vehicles\RotateWheel.cs" />
      <Compile Include="Assets\Scripts\Vehicles\Vehicle.cs" />
-     <Compile Include="Assets\Scripts\Weapons\BulletBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Weapons\Gun.cs" />
-     <Compile Include="Assets\Scripts\Weapons\Spin.cs" />
-     <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/home/henkwillcock/stick-rpg-3d/FirstProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

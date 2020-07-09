@@ -14,6 +14,16 @@ public class Relationship {
         this.friendliness = 50;
         this.respect = 0;
     }
+
+    public void changeFriendliness(int change) {
+        this.friendliness += change;
+
+        if (this.friendliness < 0) {
+            this.friendliness = 0;
+        } else if (this.friendliness > 100) {
+            this.friendliness = 100;
+        }
+    }
 }
 
 
@@ -42,18 +52,9 @@ public class RelationshipList : List<Relationship>
                 return relationship;
             }
         }
-        return null;
-    }
-
-    public void changeCharacterFriendliness(Character character, int friendlinessChange) {
-        Relationship relationshipToCharacter = this.getRelationshipForCharacter(character);
-
-        if (relationshipToCharacter != null) {
-            relationshipToCharacter.friendliness += friendlinessChange;
-        } else {
-            Relationship newRelationship = new Relationship(character);
-            newRelationship.friendliness += friendlinessChange;
-            this.Add(newRelationship);
-        }
+        // If no relationship exists, create one
+        Relationship newRelationship = new Relationship(character);
+        this.Add(newRelationship);
+        return newRelationship;
     }
 }

@@ -40,9 +40,9 @@ public class WalkToTargetBehaviour : Behaviour {
 
 public class AttackTargetBehaviour : Behaviour {
     public Character target;
-    public Weapon weapon;
+    public Item weapon;
 
-    public AttackTargetBehaviour(NPC npc, Character target, Weapon weapon) : base(npc){
+    public AttackTargetBehaviour(NPC npc, Character target, Item weapon) : base(npc){
         this.target = target;
         this.weapon = weapon;
     }
@@ -54,7 +54,7 @@ public class AttackTargetBehaviour : Behaviour {
         );
 
         if (distanceToTarget < this.weapon.rangeForNPC) {
-            this.weapon.effect(target.rigidbody.position);
+            this.weapon.effect(this.npc, target.rigidbody.position);
         } else {
             Vector3 heading = this.target.rigidbody.position - this.npc.rigidbody.transform.position;
             this.npc.MoveWithHeading(heading);

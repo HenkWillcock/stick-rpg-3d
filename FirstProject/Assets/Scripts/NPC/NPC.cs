@@ -6,18 +6,15 @@ public class NPC : Character
 {
     private float senseDistance;
     private Behaviour behaviour;
-    private Weapon weapon;
     private Gender genderAttractedTo;
-    private RelationshipList relationships;
 
-    public NPC() {
-        this.relationships = new RelationshipList();
-        this.behaviour = null;
-        this.senseDistance = 30f;
-    }
+    public RelationshipList relationships;
 
     void Start() {
         base.Start();
+        this.relationships = new RelationshipList();
+        this.senseDistance = 30f;
+
         InvokeRepeating("ChangeBehaviourIfNecessary", 0f, 1f);
     }
 
@@ -42,12 +39,12 @@ public class NPC : Character
         // Attack Nearby Enemy Characters
         foreach (Relationship relationship in relationshipsInRange) {
             if (relationship.friendliness <= 15) {
-                Weapon weapon;
+                Item weapon;
 
-                if (this.weapons.Count >= 1) {
-                    weapon = this.weapons[0];
+                if (this.inventory.Count >= 1) {
+                    weapon = this.inventory[0];
                 } else {
-                    weapon = new Spin(this, "Spin", 15);
+                    weapon = new Spin("Spin", 15);
                 }
 
                 this.behaviour = new AttackTargetBehaviour(
@@ -76,21 +73,32 @@ public class NPC : Character
     public override void doOtherDamageEffects(Collision collision, float damageAmount) {
         base.doOtherDamageEffects(collision, damageAmount);
 
-        // Reduce friendliness by damage dealt once sorted.
+        Character attacker = null;
 
-        BulletBehaviour bullet = collision.gameObject.GetComponent<BulletBehaviour>();
+        // Reduce friendliness by damage dealt once sorted.
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
         if (bullet != null) {
-            this.relationships.changeCharacterFriendliness(bullet.shooter, -40);
+            attacker = bullet.shooter;
         }
 
         Character character = collision.gameObject.GetComponent<Character>();
         if (character != null) {
-            this.relationships.changeCharacterFriendliness(character, -5);
+            attacker = character;
         }
 
         Vehicle vehicle = collision.gameObject.GetComponent<Vehicle>();
         if (vehicle != null) {
-            this.relationships.changeCharacterFriendliness(vehicle.driver, -40);
+            attacker = vehicle.driver;
+        }
+
+        if (attacker != null) {
+            int damageInt = System.Convert.ToInt32(damageAmount);
+            this.relationships.getRelationshipForCharacter(attacker).changeFriendliness(-damageInt);
+
+            if (attacker.name == "Player") {
+                Player player = (Player) attacker;
+                player.npcClicked = this;
+            }            
         }
     }
 

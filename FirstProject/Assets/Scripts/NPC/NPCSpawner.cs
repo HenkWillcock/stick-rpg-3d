@@ -6,8 +6,6 @@ public class NPCSpawner : MonoBehaviour
 {
     public GameObject NPCprefab;
 
-    public Rigidbody bulletPrefab;
-
     void Start()
     {
         for (int i = 0; i <= 30; i++) {
@@ -29,19 +27,31 @@ public class NPCSpawner : MonoBehaviour
 
         NPC npc = newNPC.GetComponent<NPC>();
 
-        if (Random.Range(0f, 1f) > 0.5f) {
-            npc.weapons.Add(new Gun(
-                npc,
-                "NPC Gun",
-                this.bulletPrefab,
-                Random.Range(10, 40),
-                Random.Range(30, 5)
-            ));
-        } else {
-            npc.weapons.Add(new Spin(npc, "Spin", Random.Range(15, 30)));
-        }
-
+        npc.name = this.getNPCName();
         npc.healthRegen = Random.Range(0, 2);
         npc.updateMaxHealth(Random.Range(50, 300));
+
+        if (Random.Range(0f, 1f) > 0.5f) {
+            npc.inventory.Add(Gun.PISTOL);
+        } else {
+            npc.inventory.Add(new Spin("Spin", Random.Range(15, 30)));
+        }
+    }
+
+    private string getNPCName() {
+        List<string> names = new List<string>{
+            "Pete",
+            "Douglas",
+            "Bob",
+            "Tucker",
+            "Gerald",
+            "Fredrick",
+            "Steven",
+            "Sian",
+            "Dave",
+            "Sarah"
+        };
+        int index = new System.Random().Next(names.Count);
+        return names[index];
     }
 }

@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Player : Character
 {
-    public Rigidbody bulletPrefab;  // TODO remove this, have a class which is a list of bullet prefabs.
-
-    private int weaponIndex;
+    private int currentItemIndex;
 
     public Transform transform;  // TODO put this on Character
 
@@ -14,15 +12,27 @@ public class Player : Character
 
     private int lastInteracted = 0;
 
+    public NPC npcClicked;
+
     void Start()
     {
         base.Start();
 
-        this.weapons.Add(new Spin(this, "Spin", 15));
-        this.weapons.Add(new Spin(this, "Super Spin", 30));
-        this.weapons.Add(new Gun(this, "Pistol", this.bulletPrefab, 30, 30));
-        this.weapons.Add(new Gun(this, "Machine Gun", this.bulletPrefab, 30, 8));
-        this.weapons.Add(new Gun(this, "Sniper", this.bulletPrefab, 80, 60));
+        this.name = "Player";
+
+        this.inventory.Add(new Item("Interact"));
+
+        this.inventory.Add(new Spin("Spin", 15));
+        this.inventory.Add(new Spin("Super Spin", 30));
+
+        this.inventory.Add(Gun.PISTOL);
+        this.inventory.Add(Gun.MACHINE_PISTOL);
+        this.inventory.Add(Gun.ASSAULT_RIFLE);
+        this.inventory.Add(Gun.SNIPER);
+        this.inventory.Add(Gun.HEAVY_SNIPER);
+        this.inventory.Add(Shotgun.SHOTGUN);
+        this.inventory.Add(Shotgun.DOUBLE_SHOTGUN);
+        this.inventory.Add(Shotgun.AUTO_SHOTGUN);
     }
 
     public override void frameUpdate()
@@ -46,35 +56,38 @@ public class Player : Character
             this.timeUntilJump--;
         }
 
-        // Use Weapon
         if (Input.GetMouseButton(0)) {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit)) {  // TODO ignore hidden roofs
-                Vector3 objectHitPosition = hit.point;
-                this.currentWeapon().effect(objectHitPosition);
+                if (this.currentItem().getName() == "Interact") {
+                    this.Interact(hit.collider.gameObject);
+                } else {
+                    Vector3 objectHitPosition = hit.point;
+                    this.currentItem().effect(this, objectHitPosition);
+                }
             }
         } else {
             this.AimTowardsMouse(90);
         }
 
-        this.currentWeapon().idleEffect();
+        this.currentItem().idleEffect();
 
-        // Select Next Weapon
+        // Select Next Item
         if (Input.mouseScrollDelta.y > 0 || Input.GetKeyUp(".")) {
-            this.weaponIndex++;
+            this.currentItemIndex++;
         } else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyUp(",")) {
-            this.weaponIndex--;
+            this.currentItemIndex--;
         }
 
-        // Loop Weapon Index Around
-        if (this.weapons.Count > 0) {
-            while (this.weaponIndex > this.weapons.Count - 1) {
-                this.weaponIndex -= this.weapons.Count;
+        // Loop Item Index Around
+        if (this.inventory.Count > 0) {
+            while (this.currentItemIndex > this.inventory.Count - 1) {
+                this.currentItemIndex -= this.inventory.Count;
             }
-            while (weaponIndex < 0) {
-                this.weaponIndex += this.weapons.Count;
+            while (currentItemIndex < 0) {
+                this.currentItemIndex += this.inventory.Count;
             }
         }
 
@@ -91,6 +104,16 @@ public class Player : Character
         }
     }
 
+    public void Interact(GameObject gameObject) {
+        NPC npc = gameObject.GetComponent<NPC>();
+
+        if (npc != null) {
+            this.npcClicked = npc;
+        } else {
+            this.npcClicked = null;
+        }
+    }
+
     public void OnTriggerStay(Collider other)
     {
         // Enter Vehicle
@@ -103,8 +126,8 @@ public class Player : Character
         }
     }
 
-    public Weapon currentWeapon() {
-        return this.weapons[this.weaponIndex];
+    public Item currentItem() {
+        return this.inventory[this.currentItemIndex];
     }
 
     public void AimTowardsMouse(float offset) {

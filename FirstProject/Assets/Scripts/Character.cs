@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Represent either an NPC or a human Player.
-public abstract class Character : Entity
+public abstract class Character : HealthEntity
 {
     public static float IMPULSE_DAMAGE_MULTIPLIER = 1f;
     public static float DESPAWN_TIME = 15f;
+
+    public string name;
 
     [SerializeField] private float topSpeed;
     [SerializeField] private float acceleration;
@@ -25,12 +27,13 @@ public abstract class Character : Entity
 
     public float healthRegen;
 
-    public List<Weapon> weapons;  // TODO expand this to be List<Item> inventory, where Item is base class of Weapon
+    public List<Item> inventory;
+    public int money;
 
     private int stunTime = 0;
 
     public Character() {
-        this.weapons = new List<Weapon>();
+        this.inventory = new List<Item>();
     }
 
     public void Start() {
@@ -63,6 +66,10 @@ public abstract class Character : Entity
     public abstract void frameUpdate();
 
     public void RegenerateHealth() {
+        if (this.isDead) {
+            return;
+        }
+
         if (this.currentHealth < this.maxHealth - this.healthRegen) {
             this.currentHealth += this.healthRegen;
         } else {
@@ -123,6 +130,10 @@ public abstract class Character : Entity
 
         // TODO use torques dont just set rotation.
         this.rigidbody.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+    }
+
+    public override float getBaseDamage() {
+        return this.rigidbody.angularVelocity.magnitude;
     }
 }
 
