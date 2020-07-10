@@ -24,16 +24,12 @@ public abstract class Character : HealthEntity
     // Used by NPCs to calculate sexual attaction.
 
     public Vehicle vehicle;
-
     public float healthRegen;
-
-    public List<Item> inventory;
-    public int money;
-
+    public Inventory inventory;
     private int stunTime = 0;
 
     public Character() {
-        this.inventory = new List<Item>();
+        this.inventory = new Inventory();
     }
 
     public void Start() {

@@ -1,0 +1,9 @@
+NullReferenceException: Object reference not set to an instance of an object
+RelationshipList.relationshipsInRange (UnityEngine.Vector3 position, System.Single senseDistance) (at Assets/Scripts/NPC/RelationshipList.cs:26)
+NPC.ChangeBehaviourIfNecessary () (at Assets/Scripts/NPC/NPC.cs:37)
+
+
+NullReferenceException: Object reference not set to an instance of an object
+NPC.doOtherDamageEffects (UnityEngine.Collision collision, System.Single damageAmount) (at Assets/Scripts/NPC/NPC.cs:94)
+Entity.OnCollisionEnter (UnityEngine.Collision collision) (at Assets/Scripts/Entity.cs:49)
+

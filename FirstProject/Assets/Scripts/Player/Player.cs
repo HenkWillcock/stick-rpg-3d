@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : Character
 {
-    private int currentItemIndex;
-
     public Transform transform;  // TODO put this on Character
 
     public CameraMovement cameraScript;
@@ -20,19 +18,21 @@ public class Player : Character
 
         this.name = "Player";
 
-        this.inventory.Add(new Item("Interact"));
+        this.inventory.items.Add(new Item("Interact"));
 
-        this.inventory.Add(new Spin("Spin", 15));
-        this.inventory.Add(new Spin("Super Spin", 30));
+        this.inventory.items.Add(new Spin("Spin", 15));
+        this.inventory.items.Add(new Spin("Super Spin", 30));
 
-        this.inventory.Add(Gun.PISTOL);
-        this.inventory.Add(Gun.MACHINE_PISTOL);
-        this.inventory.Add(Gun.ASSAULT_RIFLE);
-        this.inventory.Add(Gun.SNIPER);
-        this.inventory.Add(Gun.HEAVY_SNIPER);
-        this.inventory.Add(Shotgun.SHOTGUN);
-        this.inventory.Add(Shotgun.DOUBLE_SHOTGUN);
-        this.inventory.Add(Shotgun.AUTO_SHOTGUN);
+        this.inventory.items.Add(Gun.PISTOL);
+        this.inventory.items.Add(Gun.MACHINE_PISTOL);
+        this.inventory.items.Add(Gun.ASSAULT_RIFLE);
+        this.inventory.items.Add(Gun.SNIPER);
+        this.inventory.items.Add(Gun.HEAVY_SNIPER);
+        this.inventory.items.Add(Shotgun.SHOTGUN);
+        this.inventory.items.Add(Shotgun.DOUBLE_SHOTGUN);
+        this.inventory.items.Add(Shotgun.AUTO_SHOTGUN);
+
+        this.inventory.money = 1000;
     }
 
     public override void frameUpdate()
@@ -61,34 +61,24 @@ public class Player : Character
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit)) {  // TODO ignore hidden roofs
-                if (this.currentItem().getName() == "Interact") {
+                if (this.inventory.currentItem().getName() == "Interact") {
                     this.Interact(hit.collider.gameObject);
                 } else {
                     Vector3 objectHitPosition = hit.point;
-                    this.currentItem().effect(this, objectHitPosition);
+                    this.inventory.currentItem().effect(this, objectHitPosition);
                 }
             }
         } else {
             this.AimTowardsMouse(90);
         }
 
-        this.currentItem().idleEffect();
+        this.inventory.currentItem().idleEffect();
 
         // Select Next Item
         if (Input.mouseScrollDelta.y > 0 || Input.GetKeyUp(".")) {
-            this.currentItemIndex++;
+            this.inventory.selectNextItem();
         } else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyUp(",")) {
-            this.currentItemIndex--;
-        }
-
-        // Loop Item Index Around
-        if (this.inventory.Count > 0) {
-            while (this.currentItemIndex > this.inventory.Count - 1) {
-                this.currentItemIndex -= this.inventory.Count;
-            }
-            while (currentItemIndex < 0) {
-                this.currentItemIndex += this.inventory.Count;
-            }
+            this.inventory.selectPreviousItem();
         }
 
         // Exit Vehicle
@@ -124,10 +114,6 @@ public class Player : Character
             this.EnterVehicle(vehicle);
             this.cameraScript.recalculateCameraPosition(60, 30);
         }
-    }
-
-    public Item currentItem() {
-        return this.inventory[this.currentItemIndex];
     }
 
     public void AimTowardsMouse(float offset) {

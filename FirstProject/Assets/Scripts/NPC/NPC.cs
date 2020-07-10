@@ -41,8 +41,8 @@ public class NPC : Character
             if (relationship.friendliness <= 15) {
                 Item weapon;
 
-                if (this.inventory.Count >= 1) {
-                    weapon = this.inventory[0];
+                if (!this.inventory.isEmpty()) {
+                    weapon = this.inventory.items[0];
                 } else {
                     weapon = new Spin("Spin", 15);
                 }

@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\HealthEntity.cs" />
      <Compile Include="Assets\Scripts\HUD\HUD.cs" />
+     <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\Scripts\Items\Bullet.cs" />
      <Compile Include="Assets\Scripts\Items\Gun.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
