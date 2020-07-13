@@ -50,6 +50,6 @@ public class Helicopter : Vehicle
 
     public override string vehicleText()
     {
-        return "Rotor Speed: " + Mathf.Round(this.rotorSpeed);
+        return "Rotor Speed: " + Mathf.Round(this.rotorSpeed) + "\n\nUp/Down Arrow - Rotor Speed\nW/S - Pitch,  Q/E - Roll\nA/D - Spin";
     }
 }

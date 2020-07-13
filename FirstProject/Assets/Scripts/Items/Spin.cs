@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Spin : Item {
+    public static Spin BASIC_SPIN = new Spin("Spin", 0, 1.0f, 15);
+    public static Spin SUPER_SPIN = new Spin("Super Spin", 500, 0.1f, 30);
+
     private float spinSpeed;
 
     public Spin(
             string name,
+            int moneyValue,
+            float chanceNPCHas,
             float spinSpeed
-        ) : base(name) {
+        ) : base(name, moneyValue, chanceNPCHas) {
 
         this.spinSpeed = spinSpeed;
         this.rangeForNPC = 1.5f;

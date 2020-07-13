@@ -5,11 +5,11 @@ using UnityEngine;
 public class Gun : Item {
     public static GameObject bulletPrefab = Resources.Load<GameObject>("Objects/Bullet");
 
-    public static Gun PISTOL = new Gun("Pistol", 30, 30);
-    public static Gun MACHINE_PISTOL = new Gun("Machine Pistol", 30, 8);
-    public static Gun ASSAULT_RIFLE = new Gun("Assault Rifle", 45, 15);
-    public static Gun SNIPER = new Gun("Sniper", 60, 60);
-    public static Gun HEAVY_SNIPER = new Gun("Heavy Sniper", 90, 90);
+    public static Gun PISTOL = new Gun("Pistol", 300, 0.5f, 30, 30);
+    public static Gun MACHINE_PISTOL = new Gun("Machine Pistol", 800, 0.1f, 30, 8);
+    public static Gun ASSAULT_RIFLE = new Gun("Assault Rifle", 1800, 0.1f, 45, 15);
+    public static Gun SNIPER = new Gun("Sniper", 2500, 0.1f, 60, 60);
+    public static Gun HEAVY_SNIPER = new Gun("Heavy Sniper", 6000, 0.05f, 90, 90);
 
     private float bulletVelocity;
     private int reloadTime;
@@ -18,10 +18,12 @@ public class Gun : Item {
 
     public Gun(
         string name,
+        int moneyValue,
+        float chanceNPCHas,
         float bulletVelocity,
         int reloadTime
     ) :
-        base(name) 
+        base(name, moneyValue, chanceNPCHas)
     {
         this.bulletVelocity = bulletVelocity;
         this.reloadTime = reloadTime;

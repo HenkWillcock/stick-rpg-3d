@@ -52,6 +52,7 @@ public class Car : Vehicle
 
     public override string vehicleText() {
         return
+                this.name + "\n\n" +
                 Mathf.Round(this.rigidbody.velocity.magnitude * 3.6f).ToString() + " km/h\n" +
                 "Gear: " + this.gear.ToString();
     }

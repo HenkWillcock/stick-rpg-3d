@@ -18,11 +18,10 @@ public class Player : Character
 
         this.name = "Player";
 
-        this.inventory.items.Add(new Item("Interact"));
+        this.inventory.items.Add(new Item("Interact", 0, 0));
 
-        this.inventory.items.Add(new Spin("Spin", 15));
-        this.inventory.items.Add(new Spin("Super Spin", 30));
-
+        this.inventory.items.Add(Spin.BASIC_SPIN);
+        this.inventory.items.Add(Spin.SUPER_SPIN);
         this.inventory.items.Add(Gun.PISTOL);
         this.inventory.items.Add(Gun.MACHINE_PISTOL);
         this.inventory.items.Add(Gun.ASSAULT_RIFLE);
@@ -76,9 +75,25 @@ public class Player : Character
 
         // Select Next Item
         if (Input.mouseScrollDelta.y > 0 || Input.GetKeyUp(".")) {
-            this.inventory.selectNextItem();
-        } else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyUp(",")) {
             this.inventory.selectPreviousItem();
+        } else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyUp(",")) {
+            this.inventory.selectNextItem();
+        }
+
+        // Expand Inventory
+        if (Input.GetKeyUp("tab")) {
+            
+            if (this.inventory.inventoryHud != null) {
+                this.inventory.inventoryHud.isExpanded = !this.inventory.inventoryHud.isExpanded;
+                this.inventory.inventoryHud.UpdateInventorySlots();
+            }
+
+            if (this.npcClicked != null) {
+                if (this.npcClicked.inventory.inventoryHud != null) {
+                    this.npcClicked.inventory.inventoryHud.isExpanded = this.inventory.inventoryHud.isExpanded;
+                    this.npcClicked.inventory.inventoryHud.UpdateInventorySlots();
+                }
+            }
         }
 
         // Exit Vehicle
@@ -99,6 +114,7 @@ public class Player : Character
 
         if (npc != null) {
             this.npcClicked = npc;
+            this.npcClicked.inventory.inventoryHud.isExpanded = this.inventory.inventoryHud.isExpanded;
         } else {
             this.npcClicked = null;
         }

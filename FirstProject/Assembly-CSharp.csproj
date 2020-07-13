@@ -61,6 +61,8 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\HealthEntity.cs" />
      <Compile Include="Assets\Scripts\HUD\HUD.cs" />
+     <Compile Include="Assets\Scripts\HUD\InventoryHUD.cs" />
+     <Compile Include="Assets\Scripts\HUD\ItemSlotHUD.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\Scripts\Items\Bullet.cs" />
      <Compile Include="Assets\Scripts\Items\Gun.cs" />
@@ -69,8 +71,8 @@
      <Compile Include="Assets\Scripts\Items\Spin.cs" />
      <Compile Include="Assets\Scripts\NPC\Behaviour.cs" />
      <Compile Include="Assets\Scripts\NPC\NPC.cs" />
-     <Compile Include="Assets\Scripts\NPC\NPCSpawner.cs" />
      <Compile Include="Assets\Scripts\NPC\RelationshipList.cs" />
+     <Compile Include="Assets\Scripts\NPC\Spawner.cs" />
      <Compile Include="Assets\Scripts\Player\Player.cs" />
      <Compile Include="Assets\Scripts\RenderChildren.cs" />
      <Compile Include="Assets\Scripts\RoofDisappear.cs" />

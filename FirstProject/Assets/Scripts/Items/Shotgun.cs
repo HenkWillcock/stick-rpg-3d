@@ -5,18 +5,20 @@ using UnityEngine;
 public class Shotgun : Gun
 {
 
-    public static Shotgun SHOTGUN = new Shotgun("Shotgun", 30, 30, 4);
-    public static Shotgun DOUBLE_SHOTGUN = new Shotgun("Double Shotgun", 50, 50, 8);
-    public static Shotgun AUTO_SHOTGUN = new Shotgun("Auto Shotgun", 30, 10, 4);
+    public static Shotgun SHOTGUN = new Shotgun("Shotgun", 400, 0.2f, 30, 30, 4);
+    public static Shotgun DOUBLE_SHOTGUN = new Shotgun("Double Shotgun", 2000, 0.05f, 50, 50, 8);
+    public static Shotgun AUTO_SHOTGUN = new Shotgun("Auto Shotgun", 3000, 0.05f, 30, 10, 4);
 
     public int numberOfPellets;
 
     public Shotgun(
         string name,
+        int moneyValue,
+        float chanceNPCHas,
         float bulletVelocity,
         int reloadTime,
         int numberOfPellets
-    ) : base(name, bulletVelocity, reloadTime) {
+    ) : base(name, moneyValue, chanceNPCHas, bulletVelocity, reloadTime) {
         this.numberOfPellets = numberOfPellets;
     }
 

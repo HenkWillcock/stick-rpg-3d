@@ -5,9 +5,6 @@ using UnityEngine;
 // Represent either an NPC or a human Player.
 public abstract class Character : HealthEntity
 {
-    public static float IMPULSE_DAMAGE_MULTIPLIER = 1f;
-    public static float DESPAWN_TIME = 15f;
-
     public string name;
 
     [SerializeField] private float topSpeed;

@@ -42,24 +42,23 @@ public class NPC : Character
                 Item weapon;
 
                 if (!this.inventory.isEmpty()) {
-                    weapon = this.inventory.items[0];
-                } else {
-                    weapon = new Spin("Spin", 15);
+                    this.inventory.SwitchToBestWeapon();
                 }
 
                 this.behaviour = new AttackTargetBehaviour(
                     this,
-                    relationship.character,
-                    weapon
+                    relationship.character
                 );
             }
         }
+
+        // TODO run from Enemies if this NPC is a wuss
 
         // Randomly Walk Somewhere
         if (!this.hasBehaviour()) {
             if (Random.Range(0f, 1f) > 0.9f) {
                 this.behaviour = new WalkToTargetBehaviour(
-                    this, 
+                    this,
                     new Vector3(
                         this.rigidbody.position.x + Random.Range(-20f, 20f),
                         5,
@@ -93,6 +92,8 @@ public class NPC : Character
 
         if (attacker != null) {
             int damageInt = System.Convert.ToInt32(damageAmount);
+
+            // TODO throws null pointer exception
             this.relationships.getRelationshipForCharacter(attacker).changeFriendliness(-damageInt);
 
             if (attacker.name == "Player") {
@@ -112,5 +113,12 @@ public class NPC : Character
 
     private bool hasBehaviour() {
         return this.behaviour != null;
+    }
+
+    public void GoToPosition(Vector3 targetPosition) {
+        // This method should incorporate vehicles and public transport for longer journeys.
+        Vector3 heading = targetPosition - this.rigidbody.transform.position;
+        this.MoveWithHeading(heading);
+        this.AimInDirection(heading, 90f);
     }
 }

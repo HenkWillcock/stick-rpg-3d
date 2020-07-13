@@ -24,9 +24,7 @@ public class WalkToTargetBehaviour : Behaviour {
     }
 
     public override void doBehaviour() {
-        Vector3 heading = this.targetPosition - this.npc.rigidbody.transform.position;
-        this.npc.MoveWithHeading(heading);
-        this.npc.AimInDirection(heading, 90f);
+        this.npc.GoToPosition(this.targetPosition);
     }
 
     public override bool isComplete() {
@@ -40,11 +38,9 @@ public class WalkToTargetBehaviour : Behaviour {
 
 public class AttackTargetBehaviour : Behaviour {
     public Character target;
-    public Item weapon;
 
-    public AttackTargetBehaviour(NPC npc, Character target, Item weapon) : base(npc){
+    public AttackTargetBehaviour(NPC npc, Character target) : base(npc){
         this.target = target;
-        this.weapon = weapon;
     }
 
     public override void doBehaviour() {
@@ -53,15 +49,13 @@ public class AttackTargetBehaviour : Behaviour {
             this.target.rigidbody.position
         );
 
-        if (distanceToTarget < this.weapon.rangeForNPC) {
-            this.weapon.effect(this.npc, target.rigidbody.position);
+        if (distanceToTarget < this.npc.inventory.currentItem().rangeForNPC) {
+            this.npc.inventory.currentItem().effect(this.npc, target.rigidbody.position);
         } else {
-            Vector3 heading = this.target.rigidbody.position - this.npc.rigidbody.transform.position;
-            this.npc.MoveWithHeading(heading);
-            this.npc.AimInDirection(heading, 90f);
+            this.npc.GoToPosition(this.target.rigidbody.position);
         }
 
-        this.weapon.idleEffect();
+        this.npc.inventory.currentItem().idleEffect();
     }
 
     public override bool isComplete() {

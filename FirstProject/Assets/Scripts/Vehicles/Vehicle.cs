@@ -4,9 +4,7 @@ using UnityEngine;
 
 public abstract class Vehicle : HealthEntity
 {
-    // TODO create a class Entity which Vehicle and Character both extend.
-    // Will give health and anything else they share.
-
+    public string name;
     public Transform transform;
     public Rigidbody rigidbody;
 

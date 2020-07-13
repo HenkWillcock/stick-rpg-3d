@@ -6,6 +6,7 @@ ScriptsOnlyBuild:
     - Car
     - HUD
     - Helicopter
+    - InventoryHUD
     - NPC
     - NPCSpawner
     - Player
@@ -50,35 +51,37 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9332}
+      Script: {instanceID: 9326}
     - Class: 114
-      Script: {instanceID: 9344}
+      Script: {instanceID: 9338}
     - Class: 114
-      Script: {instanceID: 9352}
+      Script: {instanceID: 9346}
     - Class: 114
-      Script: {instanceID: 9386}
+      Script: {instanceID: 9380}
     - Class: 114
-      Script: {instanceID: 9390}
+      Script: {instanceID: 9384}
     - Class: 114
-      Script: {instanceID: 9442}
+      Script: {instanceID: 9434}
     - Class: 114
-      Script: {instanceID: 9596}
+      Script: {instanceID: 9590}
     - Class: 114
-      Script: {instanceID: 9670}
+      Script: {instanceID: 9660}
     - Class: 114
-      Script: {instanceID: 9820}
+      Script: {instanceID: 9812}
     - Class: 114
-      Script: {instanceID: 10024}
+      Script: {instanceID: 10006}
     - Class: 114
-      Script: {instanceID: 10140}
+      Script: {instanceID: 10120}
     - Class: 114
-      Script: {instanceID: 10154}
+      Script: {instanceID: 10132}
     - Class: 114
-      Script: {instanceID: 10244}
+      Script: {instanceID: 10222}
     - Class: 114
-      Script: {instanceID: 10292}
+      Script: {instanceID: 10268}
     - Class: 114
-      Script: {instanceID: 10618}
+      Script: {instanceID: 10590}
+    - Class: 114
+      Script: {instanceID: 33548}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -540,7 +543,7 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
-      Hash: 4d9ddc35177f0b26057b73b4c7ea4f3c
+      Hash: 33c98da30fa1295feadda87e44ceccb3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HUD
@@ -642,7 +645,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 9e257df7934689a366cc0bb6fa2d3f7e
+      Hash: 39e5a3f4abaa0e2386b3cb384a812709
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -726,7 +729,7 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: b783ef425fdb069d676e67f15b353922
+      Hash: c523ecbdc20ed6005d5f0a370d1e12af
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NPC
@@ -808,6 +811,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: a061b0173c86990f667d4e5897697261
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InventoryHUD
   platform: 20
   scenePathNames:
   - Assets/Scenes/Grogan.unity

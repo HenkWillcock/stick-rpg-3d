@@ -5,10 +5,13 @@ using UnityEngine;
 public class Item {
     private string name;
     public int moneyValue;
+    public float chanceNPCHas;
     public float rangeForNPC;
 
-    public Item(string name) {
+    public Item(string name, int moneyValue, float chanceNPCHas) {
         this.name = name;
+        this.moneyValue = moneyValue;
+        this.chanceNPCHas = chanceNPCHas;
     }
 
     public string getName() {return this.name;}
