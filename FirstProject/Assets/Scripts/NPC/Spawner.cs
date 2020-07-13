@@ -57,20 +57,20 @@ public class Spawner : MonoBehaviour
         npc.updateMaxHealth(Random.Range(50, 300));
 
         List<Item> allItems = new List<Item>();
-        allItems.Add(Spin.BASIC_SPIN);
-        allItems.Add(Spin.SUPER_SPIN);
-        allItems.Add(Gun.PISTOL);
-        allItems.Add(Gun.MACHINE_PISTOL);
-        allItems.Add(Gun.ASSAULT_RIFLE);
-        allItems.Add(Gun.SNIPER);
-        allItems.Add(Gun.HEAVY_SNIPER);
-        allItems.Add(Shotgun.SHOTGUN);
-        allItems.Add(Shotgun.DOUBLE_SHOTGUN);
-        allItems.Add(Shotgun.AUTO_SHOTGUN);
+        allItems.Add(Spin.BASIC_SPIN());
+        allItems.Add(Spin.SUPER_SPIN());
+        allItems.Add(Gun.PISTOL());
+        allItems.Add(Gun.MACHINE_PISTOL());
+        allItems.Add(Gun.ASSAULT_RIFLE());
+        allItems.Add(Gun.SNIPER());
+        allItems.Add(Gun.HEAVY_SNIPER());
+        allItems.Add(Shotgun.SHOTGUN());
+        allItems.Add(Shotgun.DOUBLE_SHOTGUN());
+        allItems.Add(Shotgun.AUTO_SHOTGUN());
 
         foreach(Item item in allItems) {
             if (item.chanceNPCHas > Random.Range(0f, 1f)) {
-                npc.inventory.items.Add(item);
+                npc.inventory.AddItem(item);  // TODO clone rather than adding another reference
             }
         }
     }

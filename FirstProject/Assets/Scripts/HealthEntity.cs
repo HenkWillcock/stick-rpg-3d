@@ -48,8 +48,7 @@ public abstract class HealthEntity : Entity
         this.doOtherDamageEffects(collision, healthLoss);
 
         if (this.currentHealth < 0) {
-            this.isDead = true;
-            this.currentHealth = 0;
+            this.setDead();
         }
     }
 
@@ -75,4 +74,9 @@ public abstract class HealthEntity : Entity
     }
 
     public abstract void doOtherDamageEffects(Collision collision, float damageAmount);
+
+    public virtual void setDead() {
+        this.isDead = true;
+        this.currentHealth = 0;
+    }
 }

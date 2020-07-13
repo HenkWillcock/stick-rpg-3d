@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Item {
+    public Inventory inventoryBelongsTo;
+
     private string name;
     public int moneyValue;
     public float chanceNPCHas;

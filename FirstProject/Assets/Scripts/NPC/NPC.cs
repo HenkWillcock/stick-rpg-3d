@@ -14,7 +14,6 @@ public class NPC : Character
         base.Start();
         this.relationships = new RelationshipList();
         this.senseDistance = 30f;
-
         InvokeRepeating("ChangeBehaviourIfNecessary", 0f, 1f);
     }
 
@@ -98,7 +97,7 @@ public class NPC : Character
 
             if (attacker.name == "Player") {
                 Player player = (Player) attacker;
-                player.npcClicked = this;
+                player.SetNPCClicked(this);
             }            
         }
     }

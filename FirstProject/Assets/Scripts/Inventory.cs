@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class Inventory
 {
+    public Character owner;  // Back Ref
+
     public List<Item> items;
     public int currentItemIndex;
     public int money;
     public InventoryHUD inventoryHud;
 
-    private List<GameObject> itemSlots;
-
     public Inventory() {
         this.items = new List<Item>();
-        this.itemSlots = new List<GameObject>();
         this.currentItemIndex = 0;
         this.money = 0;
     }
 
     public Item currentItem() {
-        return this.items[this.currentItemIndex];
+        try {
+            return this.items[this.currentItemIndex];
+        } catch (System.ArgumentOutOfRangeException e) {
+            return null;
+        }
     }
 
     public void selectNextItem() {
@@ -27,20 +30,12 @@ public class Inventory
         if (this.currentItemIndex > this.items.Count - 1) {
             this.currentItemIndex -= this.items.Count;
         }
-        if (this.inventoryHud != null) {
-            this.inventoryHud.ExpandFor1Second();
-            this.inventoryHud.UpdateInventorySlots();
-        }
     }
 
     public void selectPreviousItem() {
         this.currentItemIndex--;
         if (this.currentItemIndex < 0) {
             this.currentItemIndex += this.items.Count;
-        }
-        if (this.inventoryHud != null) {
-            this.inventoryHud.ExpandFor1Second();
-            this.inventoryHud.UpdateInventorySlots();
         }
     }
 
@@ -59,12 +54,18 @@ public class Inventory
         }
     }
 
-    public void SetInventoryHUD(InventoryHUD inventoryHud) {
-        foreach (GameObject itemSlot in this.itemSlots) {
-            GameObject.Destroy(itemSlot);
+    public void AddItem(Item item) {
+        if (item.inventoryBelongsTo != null) {
+            item.inventoryBelongsTo.items.Remove(item);
         }
-        this.inventoryHud = inventoryHud;
-        inventoryHud.inventory = this;
-        this.inventoryHud.UpdateInventorySlots();
+        this.items.Add(item);
+        item.inventoryBelongsTo = this;
+    }
+
+    public void UnequipItem() {
+        this.currentItemIndex = -1;
+        if (this.inventoryHud != null) {
+            this.inventoryHud.UpdateInventorySlots();
+        }
     }
 }

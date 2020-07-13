@@ -5,9 +5,9 @@ using UnityEngine;
 public class Shotgun : Gun
 {
 
-    public static Shotgun SHOTGUN = new Shotgun("Shotgun", 400, 0.2f, 30, 30, 4);
-    public static Shotgun DOUBLE_SHOTGUN = new Shotgun("Double Shotgun", 2000, 0.05f, 50, 50, 8);
-    public static Shotgun AUTO_SHOTGUN = new Shotgun("Auto Shotgun", 3000, 0.05f, 30, 10, 4);
+    public static Shotgun SHOTGUN() {return new Shotgun("Shotgun", 400, 0.2f, 30, 30, 4);}
+    public static Shotgun DOUBLE_SHOTGUN() {return new Shotgun("Double Shotgun", 2000, 0.05f, 50, 50, 8);}
+    public static Shotgun AUTO_SHOTGUN() {return new Shotgun("Auto Shotgun", 3000, 0.05f, 30, 10, 4);}
 
     public int numberOfPellets;
 

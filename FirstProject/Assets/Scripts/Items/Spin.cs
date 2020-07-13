@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Spin : Item {
-    public static Spin BASIC_SPIN = new Spin("Spin", 0, 1.0f, 15);
-    public static Spin SUPER_SPIN = new Spin("Super Spin", 500, 0.1f, 30);
+    public static Spin BASIC_SPIN() {return new Spin("Spin", 0, 1.0f, 15);}
+    public static Spin SUPER_SPIN() {return new Spin("Super Spin", 500, 0.1f, 30);}
 
     private float spinSpeed;
 

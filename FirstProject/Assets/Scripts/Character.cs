@@ -27,6 +27,7 @@ public abstract class Character : HealthEntity
 
     public Character() {
         this.inventory = new Inventory();
+        this.inventory.owner = this;
     }
 
     public void Start() {
@@ -127,6 +128,11 @@ public abstract class Character : HealthEntity
 
     public override float getBaseDamage() {
         return this.rigidbody.angularVelocity.magnitude;
+    }
+
+    public override void setDead() {
+        base.setDead();
+        this.inventory.UnequipItem();
     }
 }
 

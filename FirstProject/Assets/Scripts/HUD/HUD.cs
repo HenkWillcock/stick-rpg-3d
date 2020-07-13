@@ -14,7 +14,7 @@ public class HUD : MonoBehaviour
     public RectTransform staminaBar;
     public RectTransform hungerBar;
 
-    public InventoryHUD playerInventory;
+    public InventoryHUD playerInventoryHud;
 
     public GameObject npcPanel;
 
@@ -27,7 +27,7 @@ public class HUD : MonoBehaviour
 
     void Start()
     {
-        this.player.inventory.SetInventoryHUD(this.playerInventory);
+        this.playerInventoryHud.SetInventory(this.player.inventory);
     }
 
     void Update()
@@ -50,15 +50,16 @@ public class HUD : MonoBehaviour
             );
 
             // TODO throws Index out of range exception
-            this.npcItemText.text = this.player.npcClicked.inventory.currentItem().getName();
+            Item currentItem = this.player.npcClicked.inventory.currentItem();
+
+            if (currentItem != null) {
+                this.npcItemText.text = currentItem.getName();
+            }
 
             Relationship relationshipToPlayer = 
                 this.player.npcClicked.relationships.getRelationshipForCharacter(this.player);
 
             this.npcFriendlinessText.text = "Friendly: " + relationshipToPlayer.friendliness;
-
-            this.player.npcClicked.inventory.SetInventoryHUD(this.npcInventory);
-
         } else {
             this.npcPanel.SetActive(false);
         }

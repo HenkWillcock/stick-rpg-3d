@@ -12,6 +12,8 @@ public class Player : Character
 
     public NPC npcClicked;
 
+    public HUD hud;
+
     void Start()
     {
         base.Start();
@@ -19,17 +21,10 @@ public class Player : Character
         this.name = "Player";
 
         this.inventory.items.Add(new Item("Interact", 0, 0));
+        this.inventory.items.Add(Spin.BASIC_SPIN());
+        this.inventory.items.Add(Gun.PISTOL());
 
-        this.inventory.items.Add(Spin.BASIC_SPIN);
-        this.inventory.items.Add(Spin.SUPER_SPIN);
-        this.inventory.items.Add(Gun.PISTOL);
-        this.inventory.items.Add(Gun.MACHINE_PISTOL);
-        this.inventory.items.Add(Gun.ASSAULT_RIFLE);
-        this.inventory.items.Add(Gun.SNIPER);
-        this.inventory.items.Add(Gun.HEAVY_SNIPER);
-        this.inventory.items.Add(Shotgun.SHOTGUN);
-        this.inventory.items.Add(Shotgun.DOUBLE_SHOTGUN);
-        this.inventory.items.Add(Shotgun.AUTO_SHOTGUN);
+        this.updateMaxHealth(300);
 
         this.inventory.money = 1000;
     }
@@ -74,25 +69,29 @@ public class Player : Character
         this.inventory.currentItem().idleEffect();
 
         // Select Next Item
-        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyUp(".")) {
-            this.inventory.selectPreviousItem();
-        } else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyUp(",")) {
-            this.inventory.selectNextItem();
+        bool scrollUp = Input.mouseScrollDelta.y > 0 || Input.GetKeyUp(".");
+        bool scrollDown = Input.mouseScrollDelta.y < 0 || Input.GetKeyUp(",");
+
+        if (scrollUp || scrollDown) {
+
+            if (this.inventory.inventoryHud != null && !this.inventory.inventoryHud.isExpanded) {
+                this.inventory.inventoryHud.ExpandFor1Second();
+    
+            } else if (scrollUp) {
+                this.inventory.selectPreviousItem();
+                this.inventory.inventoryHud.ExpandFor1Second();
+
+            } else if (scrollDown) {
+                this.inventory.selectNextItem();
+                this.inventory.inventoryHud.ExpandFor1Second();
+            }
         }
 
         // Expand Inventory
         if (Input.GetKeyUp("tab")) {
-            
             if (this.inventory.inventoryHud != null) {
                 this.inventory.inventoryHud.isExpanded = !this.inventory.inventoryHud.isExpanded;
                 this.inventory.inventoryHud.UpdateInventorySlots();
-            }
-
-            if (this.npcClicked != null) {
-                if (this.npcClicked.inventory.inventoryHud != null) {
-                    this.npcClicked.inventory.inventoryHud.isExpanded = this.inventory.inventoryHud.isExpanded;
-                    this.npcClicked.inventory.inventoryHud.UpdateInventorySlots();
-                }
             }
         }
 
@@ -113,11 +112,12 @@ public class Player : Character
         NPC npc = gameObject.GetComponent<NPC>();
 
         if (npc != null) {
-            this.npcClicked = npc;
-            this.npcClicked.inventory.inventoryHud.isExpanded = this.inventory.inventoryHud.isExpanded;
-        } else {
-            this.npcClicked = null;
+            this.SetNPCClicked(npc);
         }
+        // TODO put back in but not if clicking button
+        // else {
+        //     this.npcClicked = null;
+        // }
     }
 
     public void OnTriggerStay(Collider other)
@@ -140,5 +140,10 @@ public class Player : Character
         directionToMouse.z = directionToMouse.y;  // Because X and Z are the horizontal coordinates.
 
         this.AimInDirection(directionToMouse, offset);
+    }
+
+    public void SetNPCClicked(NPC npc) {
+        this.npcClicked = npc;
+        this.hud.npcInventory.SetInventory(this.npcClicked.inventory);
     }
 }
