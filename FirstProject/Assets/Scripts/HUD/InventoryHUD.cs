@@ -81,4 +81,9 @@ public class InventoryHUD : MonoBehaviour
         inventory.inventoryHud = this;
         this.UpdateInventorySlots();
     }
+
+    public void BuyItem(Item item, int cost) {
+        this.hudBelongsTo.player.inventory.BuyItem(item, cost);
+        this.UpdateInventorySlots();
+    }
 }

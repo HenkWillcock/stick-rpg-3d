@@ -24,7 +24,7 @@ public class Player : Character
         this.inventory.items.Add(Spin.BASIC_SPIN());
         this.inventory.items.Add(Gun.PISTOL());
 
-        this.updateMaxHealth(300);
+        this.updateMaxHealth(1000);
 
         this.inventory.money = 1000;
     }

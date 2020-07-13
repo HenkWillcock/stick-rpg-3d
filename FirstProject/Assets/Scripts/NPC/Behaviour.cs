@@ -49,7 +49,7 @@ public class AttackTargetBehaviour : Behaviour {
             this.target.rigidbody.position
         );
 
-        if (distanceToTarget < this.npc.inventory.currentItem().rangeForNPC) {
+        if (this.npc.inventory.currentItem() != null && distanceToTarget < this.npc.inventory.currentItem().rangeForNPC) {
             this.npc.inventory.currentItem().effect(this.npc, target.rigidbody.position);
         } else {
             this.npc.GoToPosition(this.target.rigidbody.position);

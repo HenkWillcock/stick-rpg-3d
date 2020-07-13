@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlotHUD : MonoBehaviour
+public class ItemSlotHUD : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
 {
     public Item item;
     public InventoryHUD inventoryHUDBelongsTo;
@@ -17,8 +18,21 @@ public class ItemSlotHUD : MonoBehaviour
     }
 
     void TaskOnClick() {
-        this.inventoryHUDBelongsTo.hudBelongsTo.player.inventory.AddItem(this.item);
-        this.inventoryHUDBelongsTo.UpdateInventorySlots();
-        this.inventoryHUDBelongsTo.hudBelongsTo.player.inventory.inventoryHud.UpdateInventorySlots();
+        this.inventoryHUDBelongsTo.BuyItem(this.item, this.item.getCost());
+    }
+
+    public void OnPointerEnter (PointerEventData eventData)
+    {
+        int itemCost = this.item.getCost();
+        if (itemCost == 0) {
+            itemNameText.text = "Loot Item";
+        } else {
+            itemNameText.text = "Buy For $" + item.moneyValue;
+        }
+    }
+ 
+    public void OnPointerExit (PointerEventData eventData)
+    {
+        itemNameText.text = item.getName();
     }
 }

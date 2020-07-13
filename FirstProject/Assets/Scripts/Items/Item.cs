@@ -21,4 +21,14 @@ public class Item {
     public virtual void effect(Character user, Vector3 targetPosition) {}
 
     public virtual void idleEffect() {}
+
+    public int getCost() {
+        // TODO change this based on relationship with the NPC and your intelligence.
+
+        if (inventoryBelongsTo.owner.isDead) {
+            return 0;
+        } else {
+            return this.moneyValue;
+        }
+    }
 }

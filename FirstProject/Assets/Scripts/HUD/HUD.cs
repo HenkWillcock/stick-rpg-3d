@@ -13,6 +13,7 @@ public class HUD : MonoBehaviour
     public RectTransform healthBar;
     public RectTransform staminaBar;
     public RectTransform hungerBar;
+    public Text moneyText;
 
     public InventoryHUD playerInventoryHud;
 
@@ -33,6 +34,8 @@ public class HUD : MonoBehaviour
     void Update()
     {
         this.healthBar.transform.localScale = new Vector3(player.remainingHealthPortion(), 1, 1);
+
+        this.moneyText.text = "$ " + this.player.inventory.money.ToString();
 
         if (this.player.vehicle != null) {
             this.vehiclePanel.SetActive(true);

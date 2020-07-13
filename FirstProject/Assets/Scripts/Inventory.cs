@@ -45,7 +45,10 @@ public class Inventory
 
     public void SwitchToBestWeapon() {
         for (int i = 0; i < this.items.Count; i++) {
-            if (this.items[i].moneyValue > this.currentItem().moneyValue) {
+            if (this.currentItem() == null) {
+                this.currentItemIndex = i;
+
+            } else if (this.items[i].moneyValue > this.currentItem().moneyValue) {
                 this.currentItemIndex = i;
             }
         }
@@ -60,6 +63,17 @@ public class Inventory
         }
         this.items.Add(item);
         item.inventoryBelongsTo = this;
+        if (this.inventoryHud != null) {
+            this.inventoryHud.UpdateInventorySlots();
+        }
+    }
+
+    public void BuyItem(Item item, int price) {
+        if (price <= this.money) {
+            this.money -= price;
+            item.inventoryBelongsTo.money += price;
+            this.AddItem(item);
+        }
     }
 
     public void UnequipItem() {

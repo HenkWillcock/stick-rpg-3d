@@ -30,6 +30,10 @@ public class NPC : Character
     }
 
     void ChangeBehaviourIfNecessary() {
+        if (this.isDead) {
+            return;
+        }
+
         RelationshipList relationshipsInRange = this.relationships.relationshipsInRange(
             this.rigidbody.transform.position,
             this.senseDistance
@@ -119,5 +123,10 @@ public class NPC : Character
         Vector3 heading = targetPosition - this.rigidbody.transform.position;
         this.MoveWithHeading(heading);
         this.AimInDirection(heading, 90f);
+    }
+
+    public override void setDead() {
+        base.setDead();
+        this.behaviour = null;
     }
 }
