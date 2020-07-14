@@ -4,9 +4,7 @@ using UnityEngine;
 
 public abstract class Vehicle : HealthEntity
 {
-    public string name;
     public Transform transform;
-    public Rigidbody rigidbody;
 
     public Character driver;
 

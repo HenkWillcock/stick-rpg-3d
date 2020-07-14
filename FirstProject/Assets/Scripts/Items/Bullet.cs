@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bullet : Entity
 {
-    public Rigidbody rigidbody;
     public float lifeSpan;
 
     public Character shooter;  // TODO use this to change relationships when bullet hits.

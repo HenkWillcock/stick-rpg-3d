@@ -31,4 +31,20 @@ public class Item {
             return this.moneyValue;
         }
     }
+
+    public static List<Item> GetAllItems() {
+        // TODO improve
+        List<Item> allItems = new List<Item>();
+        allItems.Add(Spin.BASIC_SPIN());
+        allItems.Add(Spin.SUPER_SPIN());
+        allItems.Add(Gun.PISTOL());
+        allItems.Add(Gun.MACHINE_PISTOL());
+        allItems.Add(Gun.ASSAULT_RIFLE());
+        allItems.Add(Gun.SNIPER());
+        allItems.Add(Gun.HEAVY_SNIPER());
+        allItems.Add(Shotgun.SHOTGUN());
+        allItems.Add(Shotgun.DOUBLE_SHOTGUN());
+        allItems.Add(Shotgun.AUTO_SHOTGUN());
+        return allItems;
+    }
 }

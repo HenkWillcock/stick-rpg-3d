@@ -8,6 +8,56 @@ public class Spawner : MonoBehaviour
     public GameObject carPrefab;
     public GameObject helicopterPrefab;
 
+    static List<string> MALES_NAMES = new List<string>{
+        "Pete",
+        "Douglas",
+        "Bob",
+        "Tucker",
+        "Gerald",
+        "Fredrick",
+        "Steven",
+        "Dave",
+        "Baldrick",
+        "Pieterson",
+        "Hans",
+        "Jeremy",
+        "Mark",
+        "Tony",
+        "Ned",
+        "Chris-R",
+        "Johnny",
+        "Tommy Wiseau",
+        "Greg",
+        "Davis",
+        "Javis",
+        "Gobby",
+        "Declan",
+        "Derek",
+        "Smitty",
+        "Big T",
+        "Lisa",
+        "Damo",
+        "Sammy",
+        "Bobby",
+        "Robby",
+        "Roberto"
+    };
+
+    static List<string> FEMALE_NAMES = new List<string>{
+        "Sian",
+        "Sarah",
+        "Jacky",
+        "Jane",
+        "Bethany",
+        "Mary-Lyn",
+        "Nina-Rose",
+        "Anna",
+        "Rose",
+        "Nina",
+        "Sybil",
+        "Pavis",
+    };
+
     void Start()
     {
         for (int i = 0; i <= 30; i++) {
@@ -52,70 +102,36 @@ public class Spawner : MonoBehaviour
 
         NPC npc = newNPC.GetComponent<NPC>();
 
-        npc.name = this.getNPCName();
+        if (Random.Range(0f, 1f) > 0.5f) {
+            this.GiveMaleAttributes(npc);
+        } else {
+            this.GiveFemaleAttributes(npc);
+        }
+
         npc.healthRegen = Random.Range(0, 2);
         npc.updateMaxHealth(Random.Range(50, 300));
 
-        List<Item> allItems = new List<Item>();
-        allItems.Add(Spin.BASIC_SPIN());
-        allItems.Add(Spin.SUPER_SPIN());
-        allItems.Add(Gun.PISTOL());
-        allItems.Add(Gun.MACHINE_PISTOL());
-        allItems.Add(Gun.ASSAULT_RIFLE());
-        allItems.Add(Gun.SNIPER());
-        allItems.Add(Gun.HEAVY_SNIPER());
-        allItems.Add(Shotgun.SHOTGUN());
-        allItems.Add(Shotgun.DOUBLE_SHOTGUN());
-        allItems.Add(Shotgun.AUTO_SHOTGUN());
-
-        foreach(Item item in allItems) {
+        foreach(Item item in Item.GetAllItems()) {
             if (item.chanceNPCHas > Random.Range(0f, 1f)) {
-                npc.inventory.AddItem(item);  // TODO clone rather than adding another reference
+                npc.inventory.AddItem(item);
             }
         }
     }
 
-    private string getNPCName() {
-        // TODO seems like 2 names end up way more common than the others.
-        List<string> names = new List<string>{
-            "Pete",
-            "Douglas",
-            "Bob",
-            "Tucker",
-            "Gerald",
-            "Fredrick",
-            "Steven",
-            "Sian",
-            "Dave",
-            "Sarah",
-            "Baldrick",
-            "Pieterson",
-            "Hans",
-            "Jeremy",
-            "Mark",
-            "Tony",
-            "Neddard",
-            "Chris-R",
-            "Johnny",
-            "Tommy Wiseau",
-            "Greg",
-            "Davis",
-            "Javis",
-            "Pavis",
-            "Gobby",
-            "Declan",
-            "Derek",
-            "Smitty",
-            "Big T",
-            "Lisa",
-            "Damo",
-            "Sammy",
-            "Jacky",
-            "Bobby",
-            "Robby",
-            "Roberto"
-        };
-        int index = System.Convert.ToInt32(Random.Range(0, names.Count));
-        return names[index];
+    private string getNPCName(List<string> nameList) {
+        int index = System.Convert.ToInt32(Random.Range(0, nameList.Count));
+        return nameList[index];
+    }
+
+    public void GiveMaleAttributes(NPC npc) {
+        npc.gender = Gender.Male;
+        npc.name = this.getNPCName(Spawner.MALES_NAMES);
+        npc.ChangeToColor(new Color(0.85f, 0.55f, 0f));
+    }
+
+    public void GiveFemaleAttributes(NPC npc) {
+        npc.gender = Gender.Female;
+        npc.name = this.getNPCName(Spawner.FEMALE_NAMES);
+        npc.ChangeToColor(new Color(1f, 0.37f, 0.65f));
     }
 }

@@ -5,13 +5,9 @@ using UnityEngine;
 // Represent either an NPC or a human Player.
 public abstract class Character : HealthEntity
 {
-    public string name;
-
     [SerializeField] private float topSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private float jumpForce;
-
-    public Rigidbody rigidbody;  // TODO put this on Entity
 
     protected int timeUntilJump = 0;
     public Gender gender;
@@ -132,7 +128,14 @@ public abstract class Character : HealthEntity
 
     public override void setDead() {
         base.setDead();
+        this.ChangeToColor(Color.gray);
         this.inventory.UnequipItem();
+    }
+
+    public void ChangeToColor(Color color) {
+        foreach (Renderer renderer in GetComponentsInChildren<Renderer>()) {
+            renderer.material.color = color;
+        }
     }
 }
 

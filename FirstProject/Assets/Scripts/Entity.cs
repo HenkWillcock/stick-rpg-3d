@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    // Put Rigidbody here
+    public Rigidbody rigidbody;
+    public string name;
 
     public virtual float getBaseDamage() {
         return 0;
