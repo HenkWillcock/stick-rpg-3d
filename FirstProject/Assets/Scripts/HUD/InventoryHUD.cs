@@ -28,7 +28,7 @@ public class InventoryHUD : MonoBehaviour
             if (this.isExpanded) {
                 float yOffset = 0;
 
-                foreach (Item item in this.inventory.items) {
+                foreach (Item item in this.inventory) {
                     if (item == this.inventory.currentItem()) {
                         this.itemSlots.Add(this.CreateInventorySlot(yOffset, item, Color.white));
                     } else {
@@ -82,8 +82,8 @@ public class InventoryHUD : MonoBehaviour
         this.UpdateInventorySlots();
     }
 
-    public void BuyItem(Item item, int cost) {
-        this.hudBelongsTo.player.inventory.BuyItem(item, cost);
+    public void BuyItem(Item item) {
+        this.hudBelongsTo.player.inventory.BuyItem(item);
         this.UpdateInventorySlots();
     }
 }

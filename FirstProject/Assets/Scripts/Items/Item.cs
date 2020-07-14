@@ -22,7 +22,7 @@ public class Item {
 
     public virtual void idleEffect() {}
 
-    public int getCost() {
+    public int GetCost() {
         // TODO change this based on relationship with the NPC and your intelligence.
 
         if (inventoryBelongsTo.owner.isDead) {

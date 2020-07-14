@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory
+public class Inventory : IEnumerable
 {
     public Character owner;  // Back Ref
 
-    public List<Item> items;
+    private List<Item> items;
     public int currentItemIndex;
     public int money;
     public InventoryHUD inventoryHud;
@@ -68,10 +68,10 @@ public class Inventory
         }
     }
 
-    public void BuyItem(Item item, int price) {
-        if (price <= this.money) {
-            this.money -= price;
-            item.inventoryBelongsTo.money += price;
+    public void BuyItem(Item item) {
+        if (item.GetCost() <= this.money) {
+            this.money -= item.GetCost();
+            item.inventoryBelongsTo.money += item.GetCost();
             this.AddItem(item);
         }
     }
@@ -81,5 +81,10 @@ public class Inventory
         if (this.inventoryHud != null) {
             this.inventoryHud.UpdateInventorySlots();
         }
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+        return this.items.GetEnumerator();
     }
 }

@@ -11,7 +11,7 @@ public abstract class Character : HealthEntity
     [SerializeField] private float acceleration;
     [SerializeField] private float jumpForce;
 
-    public Rigidbody rigidbody;
+    public Rigidbody rigidbody;  // TODO put this on Entity
 
     protected int timeUntilJump = 0;
     public Gender gender;

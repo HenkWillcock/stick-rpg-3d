@@ -20,9 +20,9 @@ public class Player : Character
 
         this.name = "Player";
 
-        this.inventory.items.Add(new Item("Interact", 0, 0));
-        this.inventory.items.Add(Spin.BASIC_SPIN());
-        this.inventory.items.Add(Gun.PISTOL());
+        this.inventory.AddItem(new Item("Interact", 0, 0));
+        this.inventory.AddItem(Spin.BASIC_SPIN());
+        this.inventory.AddItem(Gun.PISTOL());
 
         this.updateMaxHealth(1000);
 

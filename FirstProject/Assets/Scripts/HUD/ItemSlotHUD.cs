@@ -18,12 +18,12 @@ public class ItemSlotHUD : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     void TaskOnClick() {
-        this.inventoryHUDBelongsTo.BuyItem(this.item, this.item.getCost());
+        this.inventoryHUDBelongsTo.BuyItem(this.item);
     }
 
     public void OnPointerEnter (PointerEventData eventData)
     {
-        int itemCost = this.item.getCost();
+        int itemCost = this.item.GetCost();
         if (itemCost == 0) {
             itemNameText.text = "Loot Item";
         } else {
