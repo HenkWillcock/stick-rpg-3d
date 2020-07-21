@@ -24,6 +24,14 @@ public class Relationship {
             this.friendliness = 100;
         }
     }
+
+    public float SalePriceMultiplier() {
+        if (friendliness > 20) {
+            return 50 / (friendliness - 20);
+        } else {
+            return float.MaxValue;
+        }
+    }
 }
 
 

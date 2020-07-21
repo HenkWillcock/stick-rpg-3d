@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    // [SerializeField] private float smoothSpeed;
-    [SerializeField] private float lookDistance;
+    public float smoothSpeed;
+    public float lookDistance;
 
     private Vector3 overheadHeight;
     private float overheadOffset;
+
+    Vector3 desiredPosition;
 
     public Character player;
 
@@ -24,10 +26,10 @@ public class CameraMovement : MonoBehaviour
     void LateUpdate()
     {
         if(this.player.vehicle == null) {
-            transform.position = this.defaultOverheadPosition() + overheadLookAround();
+            this.desiredPosition = this.defaultOverheadPosition() + overheadLookAround();
 
         } else {
-            transform.position = 
+            this.desiredPosition = 
                     this.player.rigidbody.position +
                     this.overheadHeight -
                     this.player.vehicle.transform.forward * this.overheadOffset;
@@ -36,7 +38,8 @@ public class CameraMovement : MonoBehaviour
         }
 
         // TODO figure out smooth following without the vibration
-        // transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = desiredPosition;
+        // transform.position = Vector3.Lerp(transform.position, this.desiredPosition, smoothSpeed);
     }
 
     public void recalculateCameraPosition(float angle, float distance) {
@@ -46,6 +49,7 @@ public class CameraMovement : MonoBehaviour
         );
 
         transform.position = defaultOverheadPosition();
+        // this.desiredPosition = defaultOverheadPosition();
 
         transform.LookAt(this.player.rigidbody.position);
     }

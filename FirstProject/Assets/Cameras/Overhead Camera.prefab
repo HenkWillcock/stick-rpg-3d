@@ -96,6 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530519aa99c2991c0b8c77d27d427631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothSpeed: 0.1
   lookDistance: 20
   player: {fileID: 7854459203794524213, guid: caa7cc09a280d28d297d00ff91c992e9, type: 3}
-  overheadMode: 0

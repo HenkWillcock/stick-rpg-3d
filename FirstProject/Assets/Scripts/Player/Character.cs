@@ -110,8 +110,12 @@ public abstract class Character : HealthEntity
         this.rigidbody.detectCollisions = true;
     }
 
-    public override void doOtherDamageEffects(Collision collision, float damageAmount) {
+    public override void DoDamageActions(Character attacker, float damageAmount) {
         this.stunTime = System.Convert.ToInt32(damageAmount * 3);
+    }
+
+    public override void DoDeathActions(Character attacker) {
+        this.inventory.GiveMoneyTo(attacker.inventory);
     }
 
     public void AimInDirection(Vector3 direction, float offset) {
@@ -128,14 +132,7 @@ public abstract class Character : HealthEntity
 
     public override void setDead() {
         base.setDead();
-        this.ChangeToColor(Color.gray);
         this.inventory.UnequipItem();
-    }
-
-    public void ChangeToColor(Color color) {
-        foreach (Renderer renderer in GetComponentsInChildren<Renderer>()) {
-            renderer.material.color = color;
-        }
     }
 }
 

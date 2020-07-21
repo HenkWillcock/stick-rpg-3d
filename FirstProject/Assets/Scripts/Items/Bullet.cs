@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : Entity
+public class Bullet : MovingEntity
 {
     public float lifeSpan;
 

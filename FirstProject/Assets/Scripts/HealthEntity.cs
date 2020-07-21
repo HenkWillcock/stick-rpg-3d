@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class HealthEntity : Entity
+public abstract class HealthEntity : MovingEntity
 {
     public static float IMPULSE_DAMAGE_MULTIPLIER = 1f;
     public static float DESPAWN_TIME = 15f;
@@ -45,10 +45,36 @@ public abstract class HealthEntity : Entity
         }
 
         this.currentHealth -= healthLoss;
-        this.doOtherDamageEffects(collision, healthLoss);
+
+        Character attacker = null;
+
+        // Reduce friendliness by damage dealt once sorted.
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+        if (bullet != null) {
+            attacker = bullet.shooter;
+        }
+
+        Character character = collision.gameObject.GetComponent<Character>();
+        if (character != null) {
+            attacker = character;
+        }
+
+        Vehicle vehicle = collision.gameObject.GetComponent<Vehicle>();
+        if (vehicle != null) {
+            attacker = vehicle.driver;
+        }
+
+        if (attacker != null) {
+            this.DoDamageActions(attacker, healthLoss);
+
+            if (attacker is Player player) {
+                player.SetEntityClicked(this);
+            }
+        }
 
         if (this.currentHealth < 0) {
             this.setDead();
+            this.DoDeathActions(attacker);
         }
     }
 
@@ -73,10 +99,13 @@ public abstract class HealthEntity : Entity
         this.fillHealth();
     }
 
-    public abstract void doOtherDamageEffects(Collision collision, float damageAmount);
+    public abstract void DoDamageActions(Character attacker, float damageAmount);
+
+    public virtual void DoDeathActions(Character attacker) {}
 
     public virtual void setDead() {
         this.isDead = true;
         this.currentHealth = 0;
+        this.ChangeToColor(Color.gray);
     }
 }

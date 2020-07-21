@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5120861858139467537}
   - component: {fileID: 7063658855217141917}
   - component: {fileID: 1132392503919587707}
+  - component: {fileID: 5847038903406492201}
   m_Layer: 0
   m_Name: Cockpit
   m_TagString: Untagged
@@ -77,6 +78,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5847038903406492201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145193771851506900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff5f057bf29c198ab95d2f1e58a554d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &195760546771879195
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +168,7 @@ GameObject:
   - component: {fileID: 4324041029631922003}
   - component: {fileID: 3784221375713235029}
   - component: {fileID: 1071347858448544236}
+  - component: {fileID: 6003060835605103956}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -221,6 +235,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6003060835605103956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116866721224298057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff5f057bf29c198ab95d2f1e58a554d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5585161578886517017
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,10 +391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efb9626e9ef21a8e816ac11cdf6c000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDead: 0
-  name: Toyota Corolla
-  transform: {fileID: 1715718195882205496}
   rigidbody: {fileID: 3605030774445046685}
+  name: Toyota Corolla
+  isDead: 0
+  transform: {fileID: 1715718195882205496}
   driver: {fileID: 0}
   frontLeftWheel: {fileID: 469774138399667361}
   frontRightWheel: {fileID: 8516221421041608343}
@@ -572,6 +598,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Left Rear
       objectReference: {fileID: 0}
+    - target: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6529927250072509648, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
         type: 3}
       propertyPath: m_RootOrder
@@ -622,11 +653,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -2.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb, type: 3}
 --- !u!4 &8318167104447603664 stripped
@@ -652,6 +678,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Right Rear
+      objectReference: {fileID: 0}
+    - target: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6529927250072509648, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
         type: 3}
@@ -703,22 +734,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -2.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb, type: 3}
---- !u!146 &5058985077534471941 stripped
-WheelCollider:
-  m_CorrespondingSourceObject: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
-    type: 3}
-  m_PrefabInstance: {fileID: 3333547425339060510}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8421121641516871118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6529927250072509648, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3333547425339060510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &5058985077534471941 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
     type: 3}
   m_PrefabInstance: {fileID: 3333547425339060510}
   m_PrefabAsset: {fileID: 0}
@@ -851,15 +877,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb, type: 3}
---- !u!146 &469774138399667361 stripped
-WheelCollider:
-  m_CorrespondingSourceObject: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7994727924048278202}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3777407986138099306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6529927250072509648, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7994727924048278202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &469774138399667361 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 7527207844722050587, guid: 3ae75e1d8dfcfb18f8d625cdf00abaeb,
     type: 3}
   m_PrefabInstance: {fileID: 7994727924048278202}
   m_PrefabAsset: {fileID: 0}

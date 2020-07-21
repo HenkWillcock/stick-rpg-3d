@@ -72,38 +72,13 @@ public class NPC : Character
         }
     }
 
-    public override void doOtherDamageEffects(Collision collision, float damageAmount) {
-        base.doOtherDamageEffects(collision, damageAmount);
+    public override void DoDamageActions(Character attacker, float damageAmount) {
+        base.DoDamageActions(attacker, damageAmount);
 
-        Character attacker = null;
+        int damageInt = System.Convert.ToInt32(damageAmount);
 
-        // Reduce friendliness by damage dealt once sorted.
-        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-        if (bullet != null) {
-            attacker = bullet.shooter;
-        }
-
-        Character character = collision.gameObject.GetComponent<Character>();
-        if (character != null) {
-            attacker = character;
-        }
-
-        Vehicle vehicle = collision.gameObject.GetComponent<Vehicle>();
-        if (vehicle != null) {
-            attacker = vehicle.driver;
-        }
-
-        if (attacker != null) {
-            int damageInt = System.Convert.ToInt32(damageAmount);
-
-            // TODO throws null pointer exception
-            this.relationships.getRelationshipForCharacter(attacker).changeFriendliness(-damageInt);
-
-            if (attacker.name == "Player") {
-                Player player = (Player) attacker;
-                player.SetNPCClicked(this);
-            }            
-        }
+        // TODO throws null pointer exception
+        this.relationships.getRelationshipForCharacter(attacker).changeFriendliness(-damageInt);  
     }
 
     public int sexualAttaction(Character character) {

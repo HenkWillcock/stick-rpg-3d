@@ -10,7 +10,7 @@ public class Player : Character
 
     private int lastInteracted = 0;
 
-    public NPC npcClicked;
+    public Entity entityClicked;
 
     public HUD hud;
 
@@ -25,8 +25,6 @@ public class Player : Character
         this.inventory.AddItem(Gun.PISTOL());
 
         this.updateMaxHealth(1000);
-
-        this.inventory.money = 1000;
     }
 
     public override void frameUpdate()
@@ -109,10 +107,14 @@ public class Player : Character
     }
 
     public void Interact(GameObject gameObject) {
-        NPC npc = gameObject.GetComponent<NPC>();
+        Entity entity = gameObject.GetComponent<Entity>();
 
-        if (npc != null) {
-            this.SetNPCClicked(npc);
+        if (entity == null) {
+            entity = gameObject.GetComponentInParent<Entity>();
+        }
+
+        if (entity != null) {
+            this.SetEntityClicked(entity);
         }
         // TODO put back in but not if clicking button
         // else {
@@ -128,6 +130,7 @@ public class Player : Character
         if (vehicle != null && Input.GetKeyUp("return") && this.lastInteracted == 0) {
             this.lastInteracted = 5;
             this.EnterVehicle(vehicle);
+            this.entityClicked = vehicle;
             this.cameraScript.recalculateCameraPosition(60, 30);
         }
     }
@@ -142,8 +145,24 @@ public class Player : Character
         this.AimInDirection(directionToMouse, offset);
     }
 
-    public void SetNPCClicked(NPC npc) {
-        this.npcClicked = npc;
-        this.hud.npcInventory.SetInventory(this.npcClicked.inventory);
+    public void SetEntityClicked(Entity entity) {
+        if (this.entityClicked != null) {
+            this.entityClicked.SetIsHighlighted(false);
+        }
+
+        this.entityClicked = entity;
+        this.entityClicked.SetIsHighlighted(true);
+
+        if (this.entityClicked is NPC npc) {
+            this.hud.npcInventory.SetInventory(npc.inventory);
+        }
+    }
+
+    public void GoIndoors() {
+        this.cameraScript.recalculateCameraPosition(30, 15);
+    }
+
+    public void GoOutdoors() {
+        this.cameraScript.recalculateCameraPosition(30, 25);
     }
 }

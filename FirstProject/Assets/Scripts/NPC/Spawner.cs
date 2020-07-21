@@ -87,13 +87,24 @@ public class Spawner : MonoBehaviour
 
     void SpawnVehicle() {
         GameObject newVehicle = this.InstantiateAtRandomLocation(this.carPrefab);
+        Car car = newVehicle.GetComponent<Car>();
+        car.updateMaxHealth(10000);
 
-        if (Random.Range(0f, 1f) > 0.9f) {
-            Car carComponent = newVehicle.GetComponent<Car>();
-            carComponent.name = "Bugatti Veyron";
-            carComponent.motorTorque = 10000;
-            carComponent.topRPM = 50;
-            carComponent.brakeTorque = 10000;
+        if (Random.Range(0f, 1f) > 0.8f) {
+            car.name = "Bugatti Veyron";
+            car.motorTorque = 20000;
+            car.topRPM = 100;
+            car.brakeTorque = 20000;
+            car.ChangeToColor(new Color(0.75f, 0.45f, 0f));
+
+            foreach (WheelCollider wheel in GetComponentsInChildren<WheelCollider>()) {
+                WheelFrictionCurve newFriction = new WheelFrictionCurve();
+                newFriction.stiffness = 10;
+                wheel.forwardFriction = newFriction;
+                wheel.sidewaysFriction = newFriction;
+            }
+        } else {
+            car.ChangeToColor(Color.red);
         }
     }
 
@@ -116,6 +127,8 @@ public class Spawner : MonoBehaviour
                 npc.inventory.AddItem(item);
             }
         }
+
+        npc.inventory.money = 50;
     }
 
     private string getNPCName(List<string> nameList) {
@@ -126,12 +139,12 @@ public class Spawner : MonoBehaviour
     public void GiveMaleAttributes(NPC npc) {
         npc.gender = Gender.Male;
         npc.name = this.getNPCName(Spawner.MALES_NAMES);
-        npc.ChangeToColor(new Color(0.85f, 0.55f, 0f));
+        npc.ChangeToColor(new Color(0.75f, 0.45f, 0f));
     }
 
     public void GiveFemaleAttributes(NPC npc) {
         npc.gender = Gender.Female;
         npc.name = this.getNPCName(Spawner.FEMALE_NAMES);
-        npc.ChangeToColor(new Color(1f, 0.37f, 0.65f));
+        npc.ChangeToColor(new Color(0.9f, 0.3f, 0.55f));
     }
 }

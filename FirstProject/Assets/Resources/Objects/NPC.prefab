@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8915416726551597801}
   - component: {fileID: 899608523589184108}
   - component: {fileID: 2422232191523031512}
+  - component: {fileID: 2879536059608423078}
   m_Layer: 0
   m_Name: Arms
   m_TagString: Untagged
@@ -77,6 +78,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2879536059608423078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580073944163944877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff5f057bf29c198ab95d2f1e58a554d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &852455584796549907
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,15 +139,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1310979b6fdff3f938558c82b74c9ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 8253600624024493402}
+  name: 
+  isDead: 0
   topSpeed: 5
   acceleration: 2
   jumpForce: 15
-  rigidbody: {fileID: 8253600624024493402}
   gender: 0
   conventionalAttractiveness: 0
   vehicle: {fileID: 0}
   healthRegen: 1
-  player: {fileID: 2724552041553463575}
 --- !u!54 &8253600624024493402
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -190,6 +204,7 @@ GameObject:
   - component: {fileID: 6031247602331961580}
   - component: {fileID: 6284356427814865352}
   - component: {fileID: 4683257550680776246}
+  - component: {fileID: 7368470059398920327}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -256,6 +271,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7368470059398920327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5929412910366783224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff5f057bf29c198ab95d2f1e58a554d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6214204201105778223
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +294,7 @@ GameObject:
   - component: {fileID: 5990759857662670186}
   - component: {fileID: 2191075868959099160}
   - component: {fileID: 1582434014158034155}
+  - component: {fileID: 6696811871313397133}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -333,3 +361,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6696811871313397133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214204201105778223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff5f057bf29c198ab95d2f1e58a554d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

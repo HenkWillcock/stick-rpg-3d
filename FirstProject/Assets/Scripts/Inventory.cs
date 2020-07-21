@@ -69,9 +69,11 @@ public class Inventory : IEnumerable
     }
 
     public void BuyItem(Item item) {
-        if (item.GetCost() <= this.money) {
-            this.money -= item.GetCost();
-            item.inventoryBelongsTo.money += item.GetCost();
+        int salePrice = item.GetSalePrice(this.owner);
+
+        if (salePrice <= this.money) {
+            this.money -= salePrice;
+            item.inventoryBelongsTo.money += salePrice;
             this.AddItem(item);
         }
     }
@@ -81,6 +83,11 @@ public class Inventory : IEnumerable
         if (this.inventoryHud != null) {
             this.inventoryHud.UpdateInventorySlots();
         }
+    }
+
+    public void GiveMoneyTo(Inventory inventory) {
+        inventory.money += this.money;
+        this.money = 0;
     }
 
     public IEnumerator GetEnumerator()

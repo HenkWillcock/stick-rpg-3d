@@ -8,7 +8,6 @@ public class HUD : MonoBehaviour
     public Player player;
 
     public Text vehicleText;
-    public GameObject vehiclePanel;
 
     public RectTransform healthBar;
     public RectTransform staminaBar;
@@ -22,7 +21,9 @@ public class HUD : MonoBehaviour
     public RectTransform npcHealthBar;
     public Text npcNameText;
     public Text npcItemText;
+    public Text npcMoneyText;
     public Text npcFriendlinessText;
+    
 
     public InventoryHUD npcInventory;
 
@@ -37,32 +38,47 @@ public class HUD : MonoBehaviour
 
         this.moneyText.text = "$ " + this.player.inventory.money.ToString();
 
-        if (this.player.vehicle != null) {
-            this.vehiclePanel.SetActive(true);
-            this.vehicleText.text = this.player.vehicle.vehicleText();
-        } else {
-            this.vehiclePanel.SetActive(false);
-        }
-
-        if (this.player.npcClicked != null) {
+        if (this.player.entityClicked != null) {
 
             this.npcPanel.SetActive(true);
-            this.npcNameText.text = this.player.npcClicked.name;
-            this.npcHealthBar.transform.localScale = new Vector3(
-                this.player.npcClicked.remainingHealthPortion(), 1, 1
-            );
+            this.npcNameText.text = this.player.entityClicked.name;
 
-            // TODO throws Index out of range exception
-            Item currentItem = this.player.npcClicked.inventory.currentItem();
+            if (this.player.entityClicked is HealthEntity healthEntity) {
+                this.npcHealthBar.gameObject.SetActive(true);
 
-            if (currentItem != null) {
-                this.npcItemText.text = currentItem.getName();
+                this.npcHealthBar.transform.localScale = new Vector3(
+                    healthEntity.remainingHealthPortion(), 1, 1
+                );
+            } else {
+                this.npcHealthBar.gameObject.SetActive(false);
             }
 
-            Relationship relationshipToPlayer = 
-                this.player.npcClicked.relationships.getRelationshipForCharacter(this.player);
+            if (this.player.entityClicked is NPC npc) {
+                // TODO throws Index out of range exception
+                Item currentItem = npc.inventory.currentItem();
 
-            this.npcFriendlinessText.text = "Friendly: " + relationshipToPlayer.friendliness;
+                if (currentItem != null) {
+                    this.npcItemText.text = currentItem.getName();
+                }
+                this.npcMoneyText.text = "$ " + npc.inventory.money.ToString();
+
+                Relationship relationshipToPlayer = 
+                    npc.relationships.getRelationshipForCharacter(this.player);
+
+                this.npcFriendlinessText.text = "Friendly: " + relationshipToPlayer.friendliness;
+
+            } else {
+                this.npcItemText.text = "";
+                this.npcFriendlinessText.text = "";
+                this.npcMoneyText.text = "";
+            }
+
+            if (this.player.entityClicked is Vehicle vehicle) {
+                this.vehicleText.text = vehicle.vehicleText();
+            } else {
+                this.vehicleText.text = "";
+            }
+
         } else {
             this.npcPanel.SetActive(false);
         }

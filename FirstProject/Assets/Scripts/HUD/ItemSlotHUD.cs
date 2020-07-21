@@ -18,16 +18,20 @@ public class ItemSlotHUD : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     void TaskOnClick() {
+        // TODO pass actions into buttons when they're created.
         this.inventoryHUDBelongsTo.BuyItem(this.item);
     }
 
     public void OnPointerEnter (PointerEventData eventData)
     {
-        int itemCost = this.item.GetCost();
-        if (itemCost == 0) {
+        // TODO pass actions into buttons when they're created.
+        int salePrice = this.item.GetSalePrice(
+            this.inventoryHUDBelongsTo.hudBelongsTo.player
+        );
+        if (salePrice == 0) {
             itemNameText.text = "Loot Item";
         } else {
-            itemNameText.text = "Buy For $" + item.moneyValue;
+            itemNameText.text = "Buy For $" + salePrice;
         }
     }
  

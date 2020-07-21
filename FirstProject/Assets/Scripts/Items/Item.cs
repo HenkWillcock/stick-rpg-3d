@@ -22,13 +22,20 @@ public class Item {
 
     public virtual void idleEffect() {}
 
-    public int GetCost() {
+    public int GetSalePrice(Character buyer) {
         // TODO change this based on relationship with the NPC and your intelligence.
 
         if (inventoryBelongsTo.owner.isDead) {
             return 0;
+        } else if (inventoryBelongsTo.owner is NPC npcOwner) {
+            Relationship relationshipToBuyer = 
+                npcOwner.relationships.getRelationshipForCharacter(buyer);
+
+            return  System.Convert.ToInt32(
+                (float) this.moneyValue * relationshipToBuyer.SalePriceMultiplier()
+            );
         } else {
-            return this.moneyValue;
+            return 0;  // Should never happen
         }
     }
 

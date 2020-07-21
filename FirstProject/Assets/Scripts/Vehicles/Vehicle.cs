@@ -21,5 +21,5 @@ public abstract class Vehicle : HealthEntity
 
     public abstract string vehicleText();
 
-    public override void doOtherDamageEffects(Collision collision, float damageAmount) {}
+    public override void DoDamageActions(Character attacker, float damageAmount) {}
 }
